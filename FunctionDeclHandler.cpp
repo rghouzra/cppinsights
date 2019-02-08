@@ -23,25 +23,20 @@ namespace clang::insights {
 FunctionDeclHandler::FunctionDeclHandler(Rewriter& rewrite, MatchFinder& matcher)
 : InsightsBase(rewrite)
 {
-    matcher.addMatcher(functionDecl(unless(anyOf(cxxMethodDecl(anyOf(unless(isUserProvided()),
-                                                                     isDefaulted(),
-                                                                     isTemplated(),
-                                                                     hasParent(cxxRecordDecl(isLambda())))),
-                                                 isExpansionInSystemHeader(),
-                                                 isTemplate,
-                                                 hasAncestor(friendDecl()),    // friendDecl has functionDecl as child
-                                                 hasAncestor(functionDecl()),  // prevent forward declarations
-                                                 isMacroOrInvalidLocation())))
-                           .bind("funcDecl"),
-                       this);
+    matcher.addMatcher(functionDecl(unless(anyOf(cxxMethodDecl(),
+                                  isExpansionInSystemHeader(),
+                                  isTemplate,
+                                  hasAncestor(friendDecl()),    // friendDecl has functionDecl as child
+                                  hasAncestor(functionDecl()),  // prevent forward declarations
+                                  isMacroOrInvalidLocation())))
+            .bind("funcDecl"),
+        this);
 
     static const auto hasTemplateDescendant = anyOf(hasDescendant(classTemplateDecl()),
                                                     hasDescendant(functionTemplateDecl()),
                                                     hasDescendant(classTemplateSpecializationDecl()));
 
-    matcher.addMatcher(
-        friendDecl(unless(anyOf(cxxMethodDecl(anyOf(
-                                    unless(isUserProvided()), isDefaulted(), hasParent(cxxRecordDecl(isLambda())))),
+    matcher.addMatcher(friendDecl(unless(anyOf(cxxMethodDecl(),
                                 isExpansionInSystemHeader(),
                                 isTemplate,
                                 hasTemplateDescendant,

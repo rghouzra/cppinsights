@@ -22,32 +22,28 @@ namespace clang::insights {
 CompilerGeneratedHandler::CompilerGeneratedHandler(Rewriter& rewrite, MatchFinder& matcher)
 : InsightsBase(rewrite)
 {
-    static const auto compilerProvided = allOf(unless(anyOf(isUserProvided(),
+    matcher.addMatcher(cxxRecordDecl(hasDefinition(),
+                                     unless(anyOf(isLambda(),
+                                                  hasAncestor(cxxRecordDecl(isLambda())),
+                                                  hasAncestor(functionDecl()),
+                                                  isTemplate,
                                                             isExpansionInSystemHeader(),
-                                                            isTemplate,
-                                                            hasAncestor(functionDecl()),
-                                                            isMacroOrInvalidLocation())),
-                                               hasParent(cxxRecordDecl(unless(isLambda())).bind("record")));
-
-    matcher.addMatcher(cxxMethodDecl(compilerProvided).bind("method"), this);
+                                                  isMacroOrInvalidLocation())))
+                           .bin
+>>>>>>> ace2725... rewrite all classes
 }
 //-----------------------------------------------------------------------------
 
 void CompilerGeneratedHandler::run(const MatchFinder::MatchResult& result)
 {
-    if(const auto* methodDecl = result.Nodes.getNodeAs<CXXMethodDecl>("method")) {
+    if(const auto* cxxRecordDecl = result.Nodes.getNodeAs<CXXRecordDecl>("method")) {
         OutputFormatHelper outputFormatHelper{};
 
         CodeGenerator codeGenerator{outputFormatHelper};
-        codeGenerator.InsertAccessModifierAndNameWithReturnType(*methodDecl);
+        codeGenerator.InsertArg(cxxRecordDecl);
 
-        outputFormatHelper.AppendNewLine(";");
-
-        // add all compiler generated methods at the end of the class
-        const auto* recrodDecl = result.Nodes.getNodeAs<CXXRecordDecl>("record");
-        const auto  loc        = GetEndLoc(recrodDecl);
-
-        InsertIndentedText(loc, outputFormatHelper);
+        mRewrite.ReplaceText(GetSourceRangeAfterSemi(cxxRecordDecl->getSourceRange(), result),
+                             outputFormatHelper.GetString());
     }
 }
 //-----------------------------------------------------------------------------
