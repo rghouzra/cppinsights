@@ -153,6 +153,7 @@ OutputFormatHelper& CodeGenerator::LambdaScopeHandler::GetBuffer(OutputFormatHel
 
 void CodeGenerator::InsertArg(const CXXDependentScopeMemberExpr* stmt)
 {
+    mOutputFormatHelper.Append("asdasdfasfsadfasdfasdfasfasdfasd");
     InsertArg(stmt->getBase());
     const std::string op{stmt->isArrow() ? "->" : "."};
 
@@ -1951,6 +1952,8 @@ void CodeGenerator::InsertArg(const CXXNoexceptExpr* stmt)
 
 void CodeGenerator::InsertArg(const FunctionTemplateDecl* stmt)
 {
+    InsertArg(stmt->getTemplatedDecl());
+    stmt->dump();
     for(const auto spec : stmt->specializations()) {
         InsertArg(spec->getAsFunction());
     }
@@ -1965,6 +1968,8 @@ void CodeGenerator::InsertArg(const TypeAliasTemplateDecl* stmt)
 
 void CodeGenerator::InsertArg(const CXXRecordDecl* stmt)
 {
+    stmt->dump();
+
     if(dyn_cast_or_null<ClassTemplateSpecializationDecl>(stmt)) {
         mOutputFormatHelper.AppendNewLine("template<>");
     }
@@ -2016,6 +2021,8 @@ void CodeGenerator::InsertArg(const CXXRecordDecl* stmt)
         if((stmt->isLambda() && isa<CXXDestructorDecl>(d))) {
             continue;
         }
+
+        d->dump();
 
         InsertArg(d);
         formerKind = d->getKind();

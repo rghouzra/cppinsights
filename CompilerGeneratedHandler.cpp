@@ -26,17 +26,19 @@ CompilerGeneratedHandler::CompilerGeneratedHandler(Rewriter& rewrite, MatchFinde
                                      unless(anyOf(isLambda(),
                                                   hasAncestor(cxxRecordDecl(isLambda())),
                                                   hasAncestor(functionDecl()),
+                                                  hasParent(cxxRecordDecl()),
                                                   isTemplate,
                                                             isExpansionInSystemHeader(),
                                                   isMacroOrInvalidLocation())))
-                           .bin
->>>>>>> ace2725... rewrite all classes
+                           .bind("cxxRecordDecl"),
+                       this);
 }
 //-----------------------------------------------------------------------------
 
 void CompilerGeneratedHandler::run(const MatchFinder::MatchResult& result)
 {
-    if(const auto* cxxRecordDecl = result.Nodes.getNodeAs<CXXRecordDecl>("method")) {
+    if(const auto* cxxRecordDecl = result.Nodes.getNodeAs<CXXRecordDecl>("cxxRecordDecl")) {
+        cxxRecordDecl->dump();
         OutputFormatHelper outputFormatHelper{};
 
         CodeGenerator codeGenerator{outputFormatHelper};
