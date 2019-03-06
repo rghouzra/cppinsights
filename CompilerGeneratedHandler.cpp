@@ -26,9 +26,9 @@ CompilerGeneratedHandler::CompilerGeneratedHandler(Rewriter& rewrite, MatchFinde
                                      unless(anyOf(isLambda(),
                                                   hasAncestor(cxxRecordDecl(isLambda())),
                                                   hasAncestor(functionDecl()),
-                                                  hasParent(cxxRecordDecl()),
+                                                  hasAncestor(cxxRecordDecl()),
                                                   isTemplate,
-                                                            isExpansionInSystemHeader(),
+                                                  isExpansionInSystemHeader(),
                                                   isMacroOrInvalidLocation())))
                            .bind("cxxRecordDecl"),
                        this);

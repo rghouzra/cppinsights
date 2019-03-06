@@ -18,6 +18,7 @@
 #include "InsightsStrCat.h"
 #include "NumberIterator.h"
 #include "clang/Frontend/CompilerInstance.h"
+#include "llvm/Support/Path.h"
 //-----------------------------------------------------------------------------
 
 /// \brief Convenience macro to create a \ref LambdaScopeHandler on the stack.
@@ -700,11 +701,24 @@ void CodeGenerator::InsertArg(const FunctionDecl* stmt)
 
 void CodeGenerator::InsertArg(const ClassTemplateDecl* stmt)
 {
-    stmt->dump();
+    mOutputFormatHelper.Append("template<");
+
+    for(const auto* param : *stmt->getTemplateParameters()) {
+        param->dump();
+        if(const auto* tt = dyn_cast_or_null<TemplateTypeParmDecl>(param)) {
+            if(tt->wasDeclaredWithTypename()) {
+                mOutputFormatHelper.Append("typename ");
+            }
+        }
+
+        mOutputFormatHelper.Append(GetName(*param));
+    }
+
+    mOutputFormatHelper.AppendNewLine(">");
+
     InsertArg(stmt->getTemplatedDecl());
 
     for(const auto* spec : stmt->specializations()) {
-        spec->dump();
         InsertArg(spec);
     }
 }
@@ -1964,7 +1978,7 @@ void CodeGenerator::InsertArg(const CXXNoexceptExpr* stmt)
 void CodeGenerator::InsertArg(const FunctionTemplateDecl* stmt)
 {
     InsertArg(stmt->getTemplatedDecl());
-    stmt->dump();
+
     for(const auto spec : stmt->specializations()) {
         InsertArg(spec->getAsFunction());
     }
@@ -1977,11 +1991,33 @@ void CodeGenerator::InsertArg(const TypeAliasTemplateDecl* stmt)
 }
 //-----------------------------------------------------------------------------
 
+/// \brief Inserts the instantiation point of a template.
+//
+// This reveals at which place the template is first used.
+static void
+InsertInstantiationPoint(OutputFormatHelper& outputFormatHelper, const SourceManager& sm, const SourceLocation& instLoc)
+{
+    const auto  lineNo = sm.getSpellingLineNumber(instLoc);
+    const auto& fileId = sm.getFileID(instLoc);
+    const auto* file   = sm.getFileEntryForID(fileId);
+    if(file) {
+        const auto fileWithDirName = file->getName();
+        const auto fileName        = llvm::sys::path::filename(fileWithDirName);
+
+        outputFormatHelper.AppendNewLine("/* First instantiated from: ", fileName, ":", lineNo, " */");
+    }
+}
+//-----------------------------------------------------------------------------
+
 void CodeGenerator::InsertArg(const CXXRecordDecl* stmt)
 {
-    stmt->dump();
+    const bool isClassTemplateSpecialization{isa<ClassTemplateSpecializationDecl>(stmt)};
 
-    if(dyn_cast_or_null<ClassTemplateSpecializationDecl>(stmt)) {
+    if(isClassTemplateSpecialization) {
+        const auto* spec = dyn_cast_or_null<ClassTemplateSpecializationDecl>(stmt);
+
+        mOutputFormatHelper.AppendNewLine("#ifdef INSIGHTS_USE_TEMPLATE");
+        InsertInstantiationPoint(mOutputFormatHelper, GetSM(*spec), spec->getPointOfInstantiation());
         mOutputFormatHelper.AppendNewLine("template<>");
     }
 
@@ -2032,8 +2068,6 @@ void CodeGenerator::InsertArg(const CXXRecordDecl* stmt)
         if((stmt->isLambda() && isa<CXXDestructorDecl>(d))) {
             continue;
         }
-
-        d->dump();
 
         InsertArg(d);
         formerKind = d->getKind();
@@ -2141,6 +2175,10 @@ void CodeGenerator::InsertArg(const CXXRecordDecl* stmt)
 
     mOutputFormatHelper.AppendSemiNewLine();
     mOutputFormatHelper.AppendNewLine();
+
+    if(isClassTemplateSpecialization) {
+        mOutputFormatHelper.AppendNewLine("#endif");
+    }
 }
 //-----------------------------------------------------------------------------
 

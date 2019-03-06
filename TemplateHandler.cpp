@@ -93,9 +93,10 @@ TemplateHandler::TemplateHandler(Rewriter& rewrite, MatchFinder& matcher)
         this);
 
     // match typical use where a class template is defined and it is used later.
-    matcher.addMatcher(classTemplateSpecializationDecl(
-                           unless(anyOf(isExpansionInSystemHeader(), hasAncestor(classTemplateSpecializationDecl()))),
-                           hasParent(classTemplateDecl().bind("decl")))
+    matcher.addMatcher(classTemplateSpecializationDecl(unless(anyOf(isExpansionInSystemHeader(),
+                                                                    hasAncestor(cxxRecordDecl()),
+                                                                    hasAncestor(classTemplateSpecializationDecl()))),
+                                                       hasParent(classTemplateDecl().bind("decl")))
                            .bind("class"),
                        this);
 
