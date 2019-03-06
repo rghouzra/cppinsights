@@ -698,6 +698,18 @@ void CodeGenerator::InsertArg(const FunctionDecl* stmt)
 }
 //-----------------------------------------------------------------------------
 
+void CodeGenerator::InsertArg(const ClassTemplateDecl* stmt)
+{
+    stmt->dump();
+    InsertArg(stmt->getTemplatedDecl());
+
+    for(const auto* spec : stmt->specializations()) {
+        spec->dump();
+        InsertArg(spec);
+    }
+}
+//-----------------------------------------------------------------------------
+
 void CodeGenerator::InsertArg(const ParenListExpr* stmt)
 {
     OnceFalse needsComma{};
@@ -1731,7 +1743,6 @@ void CodeGenerator::InsertArg(const FieldDecl* stmt)
         }
 
         mOutputFormatHelper.Append(GetTypeNameAsParameter(stmt->getType(), name));
-
         // Keep the inline init for aggregates, as we do not see it somewhere else.
         if(cxxRecordDecl->isAggregate()) {
             const auto* initializer = stmt->getInClassInitializer();
@@ -2476,6 +2487,7 @@ void CodeGenerator::HandleLambdaExpr(const LambdaExpr* lambda, LambdaHelper& lam
     OutputFormatHelper& outputFormatHelper = lambdaHelper.buffer();
 
     outputFormatHelper.AppendNewLine();
+
     LambdaCodeGenerator codeGenerator{outputFormatHelper, mLambdaStack};
     codeGenerator.mCapturedThisAsCopy = [&] {
         for(const auto& c : lambda->captures()) {
@@ -2508,7 +2520,6 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
         if(not methodDecl->isUserProvided()) {
             mOutputFormatHelper.Append("// ");
         }
-
         isLambda             = methodDecl->getParent()->isLambda();
         isFirstCxxMethodDecl = (nullptr == methodDecl->getPreviousDecl());
     }
@@ -2644,7 +2655,6 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
     if(decl.isVariadic()) {
         outputFormatHelper.Append(", ...");
     }
-
     outputFormatHelper.Append(")");
 
     if(!isa<CXXConstructorDecl>(decl) && !isa<CXXDestructorDecl>(decl)) {
@@ -2668,7 +2678,6 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
     }
 
     mOutputFormatHelper.Append(GetNoExcept(decl));
-
     if(decl.isPure()) {
         mOutputFormatHelper.Append(" = 0");
     }
@@ -2806,7 +2815,6 @@ void StructuredBindingsCodeGenerator::InsertArg(const DeclRefExpr* stmt)
     if(not name.empty() && BeginsWith(name, "get")) {
         mOutputFormatHelper.Append("std::");
     }
-
     mOutputFormatHelper.Append(name);
 
     if(name.empty() || EndsWith(name, "::")) {

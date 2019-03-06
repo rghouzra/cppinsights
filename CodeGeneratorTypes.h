@@ -38,6 +38,7 @@ SUPPORTED_DECL(NamespaceAliasDecl)
 SUPPORTED_DECL(FunctionTemplateDecl)
 SUPPORTED_DECL(TypeAliasTemplateDecl)
 SUPPORTED_DECL(LabelDecl)
+SUPPORTED_DECL(ClassTemplateDecl)
 
 SUPPORTED_STMT(CXXDeleteExpr)
 SUPPORTED_STMT(CXXDefaultInitExpr)
@@ -106,6 +107,7 @@ SUPPORTED_STMT(CXXDependentScopeMemberExpr)
 SUPPORTED_STMT(CXXNoexceptExpr)
 SUPPORTED_STMT(ParenListExpr)
 SUPPORTED_STMT(SizeOfPackExpr)
+// SUPPORTED_STMT(ParenListExpr)
 SUPPORTED_STMT(ConstantExpr)
 
 #undef IGNORED_DECL
