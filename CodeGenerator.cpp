@@ -721,7 +721,8 @@ void CodeGenerator::InsertArg(const ClassTemplateDecl* stmt)
             mOutputFormatHelper.Append(GetName(nonTmplParam->getType()));
 
             if(nonTmplParam->hasDefaultArgument()) {
-                mOutputFormatHelper.Append(" = ", GetName(nonTmplParam->getDefaultArgument()));
+                mOutputFormatHelper.Append(" = ");
+                InsertArg(nonTmplParam->getDefaultArgument());
             }
         }
 
