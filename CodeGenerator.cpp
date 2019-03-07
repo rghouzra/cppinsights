@@ -703,11 +703,25 @@ void CodeGenerator::InsertArg(const ClassTemplateDecl* stmt)
 {
     mOutputFormatHelper.Append("template<");
 
+    OnceFalse needsComma{};
     for(const auto* param : *stmt->getTemplateParameters()) {
+        mOutputFormatHelper.AppendComma(needsComma);
+
         param->dump();
         if(const auto* tt = dyn_cast_or_null<TemplateTypeParmDecl>(param)) {
             if(tt->wasDeclaredWithTypename()) {
                 mOutputFormatHelper.Append("typename ");
+            }
+
+            if(tt->hasDefaultArgument()) {
+                mOutputFormatHelper.Append(" = ", GetName(tt->getDefaultArgument()));
+            }
+        } else if(const auto* nonTmplParam = dyn_cast_or_null<NonTypeTemplateParmDecl>(param)) {
+
+            mOutputFormatHelper.Append(GetName(nonTmplParam->getType()));
+
+            if(nonTmplParam->hasDefaultArgument()) {
+                mOutputFormatHelper.Append(" = ", GetName(nonTmplParam->getDefaultArgument()));
             }
         }
 
