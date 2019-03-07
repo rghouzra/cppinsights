@@ -699,38 +699,53 @@ void CodeGenerator::InsertArg(const FunctionDecl* stmt)
 }
 //-----------------------------------------------------------------------------
 
-void CodeGenerator::InsertArg(const ClassTemplateDecl* stmt)
+void CodeGenerator::InsertTemplateParameters(const TemplateParameterList& list)
 {
     mOutputFormatHelper.Append("template<");
 
     OnceFalse needsComma{};
-    for(const auto* param : *stmt->getTemplateParameters()) {
+    for(const auto* param : list) {
         mOutputFormatHelper.AppendComma(needsComma);
 
+        const auto& typeName = GetName(*param);
         param->dump();
         if(const auto* tt = dyn_cast_or_null<TemplateTypeParmDecl>(param)) {
             if(tt->wasDeclaredWithTypename()) {
                 mOutputFormatHelper.Append("typename ");
             }
 
+            if(tt->isParameterPack()) {
+                mOutputFormatHelper.Append("... ");
+            }
+
+            mOutputFormatHelper.Append(typeName);
+
             if(tt->hasDefaultArgument()) {
                 mOutputFormatHelper.Append(" = ", GetName(tt->getDefaultArgument()));
             }
         } else if(const auto* nonTmplParam = dyn_cast_or_null<NonTypeTemplateParmDecl>(param)) {
 
-            mOutputFormatHelper.Append(GetName(nonTmplParam->getType()));
+            mOutputFormatHelper.Append(GetName(nonTmplParam->getType()), " ");
+            if(nonTmplParam->isParameterPack()) {
+                mOutputFormatHelper.Append("... ");
+            }
+
+            mOutputFormatHelper.Append(typeName);
 
             if(nonTmplParam->hasDefaultArgument()) {
                 mOutputFormatHelper.Append(" = ");
                 InsertArg(nonTmplParam->getDefaultArgument());
             }
         }
-
-        mOutputFormatHelper.Append(GetName(*param));
     }
 
     mOutputFormatHelper.AppendNewLine(">");
+}
+//-----------------------------------------------------------------------------
 
+void CodeGenerator::InsertArg(const ClassTemplateDecl* stmt)
+{
+    InsertTemplateParameters(*stmt->getTemplateParameters());
     InsertArg(stmt->getTemplatedDecl());
 
     for(const auto* spec : stmt->specializations()) {
@@ -1992,11 +2007,17 @@ void CodeGenerator::InsertArg(const CXXNoexceptExpr* stmt)
 
 void CodeGenerator::InsertArg(const FunctionTemplateDecl* stmt)
 {
+    InsertTemplateParameters(*stmt->getTemplateParameters());
     InsertArg(stmt->getTemplatedDecl());
 
-    for(const auto spec : stmt->specializations()) {
-        InsertArg(spec->getAsFunction());
+    for(const auto* spec : stmt->specializations()) {
+        InsertArg(spec);
     }
+    /*
+        for(const auto spec : stmt->specializations()) {
+            InsertArg(spec->getAsFunction());
+        }
+        */
 }
 //-----------------------------------------------------------------------------
 

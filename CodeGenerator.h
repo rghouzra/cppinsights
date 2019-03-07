@@ -179,6 +179,7 @@ protected:
     void InsertTemplateArgs(const ArrayRef<TemplateArgument>& array);
     void InsertTemplateArg(const TemplateArgument& arg);
     bool InsertLambdaStaticInvoker(const CXXMethodDecl* cxxMethodDecl);
+    void InsertTemplateParameters(const TemplateParameterList& list);
 
     void PrintNamespace(const NestedNameSpecifier* namespaceSpecifier);
     void ParseDeclContext(const DeclContext* Ctx);
