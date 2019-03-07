@@ -709,16 +709,25 @@ void CodeGenerator::InsertTemplateParameters(const TemplateParameterList& list)
 
         const auto& typeName = GetName(*param);
         param->dump();
+
+        DPrint("%s\n", param->getNameAsString());
+
         if(const auto* tt = dyn_cast_or_null<TemplateTypeParmDecl>(param)) {
             if(tt->wasDeclaredWithTypename()) {
                 mOutputFormatHelper.Append("typename ");
+            } else {
+                mOutputFormatHelper.Append("class ");
             }
 
             if(tt->isParameterPack()) {
                 mOutputFormatHelper.Append("... ");
             }
 
-            mOutputFormatHelper.Append(typeName);
+            if(0 == typeName.size()) {
+                mOutputFormatHelper.Append("type-parameter-", tt->getDepth(), "-", tt->getIndex());
+            } else {
+                mOutputFormatHelper.Append(typeName);
+            }
 
             if(tt->hasDefaultArgument()) {
                 mOutputFormatHelper.Append(" = ", GetName(tt->getDefaultArgument()));
@@ -1639,6 +1648,8 @@ void CodeGenerator::InsertArg(const CXXMethodDecl* stmt)
     initOutputFormatHelper.SetIndent(mOutputFormatHelper, OutputFormatHelper::SkipIndenting::Yes);
     CXXConstructorDecl* cxxInheritedCtorDecl{nullptr};
 
+    DPrint("%d\n", stmt->isTemplated());
+
     // travers the ctor inline init statements first to find a potential CXXInheritedCtorInitExpr. This carries the
     // name and the type. The CXXMethodDecl above knows only the type.
     if(const auto* ctor = dyn_cast_or_null<CXXConstructorDecl>(stmt)) {
@@ -1787,6 +1798,7 @@ void CodeGenerator::InsertArg(const FieldDecl* stmt)
         }
 
         mOutputFormatHelper.Append(GetTypeNameAsParameter(stmt->getType(), name));
+
         // Keep the inline init for aggregates, as we do not see it somewhere else.
         if(cxxRecordDecl->isAggregate()) {
             const auto* initializer = stmt->getInClassInitializer();
@@ -2011,7 +2023,9 @@ void CodeGenerator::InsertArg(const FunctionTemplateDecl* stmt)
     InsertArg(stmt->getTemplatedDecl());
 
     for(const auto* spec : stmt->specializations()) {
+        mOutputFormatHelper.AppendNewLine("AAAA");
         InsertArg(spec);
+        mOutputFormatHelper.AppendNewLine("BBB");
     }
     /*
         for(const auto spec : stmt->specializations()) {
@@ -2561,7 +2575,6 @@ void CodeGenerator::HandleLambdaExpr(const LambdaExpr* lambda, LambdaHelper& lam
     OutputFormatHelper& outputFormatHelper = lambdaHelper.buffer();
 
     outputFormatHelper.AppendNewLine();
-
     LambdaCodeGenerator codeGenerator{outputFormatHelper, mLambdaStack};
     codeGenerator.mCapturedThisAsCopy = [&] {
         for(const auto& c : lambda->captures()) {
@@ -2594,6 +2607,7 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
         if(not methodDecl->isUserProvided()) {
             mOutputFormatHelper.Append("// ");
         }
+
         isLambda             = methodDecl->getParent()->isLambda();
         isFirstCxxMethodDecl = (nullptr == methodDecl->getPreviousDecl());
     }
@@ -2602,8 +2616,18 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
         mOutputFormatHelper.Append(AccessToStringWithColon(decl));
     }
 
+    DPrint("%d %d\n", decl.isTemplated(), decl.isTemplateInstantiation());
+
+    if(decl.isTemplated()) {
+        mOutputFormatHelper.AppendNewLine("template<>");
+    }
+
+    if(decl.isTemplateInstantiation()) {
+        mOutputFormatHelper.AppendNewLine("BBtemplate<>");
+    }
+
     if(!isLambda && ((isFirstCxxMethodDecl && decl.isFunctionTemplateSpecialization()) ||
-                     (!isFirstCxxMethodDecl && isClassTemplateSpec))) {
+                     (!isFirstCxxMethodDecl && isClassTemplateSpec) || (!isFirstCxxMethodDecl && decl.isTemplated()))) {
         mOutputFormatHelper.AppendNewLine("template<>");
     }
 
@@ -2729,6 +2753,7 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
     if(decl.isVariadic()) {
         outputFormatHelper.Append(", ...");
     }
+
     outputFormatHelper.Append(")");
 
     if(!isa<CXXConstructorDecl>(decl) && !isa<CXXDestructorDecl>(decl)) {
@@ -2752,6 +2777,7 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
     }
 
     mOutputFormatHelper.Append(GetNoExcept(decl));
+
     if(decl.isPure()) {
         mOutputFormatHelper.Append(" = 0");
     }
@@ -2889,6 +2915,7 @@ void StructuredBindingsCodeGenerator::InsertArg(const DeclRefExpr* stmt)
     if(not name.empty() && BeginsWith(name, "get")) {
         mOutputFormatHelper.Append("std::");
     }
+
     mOutputFormatHelper.Append(name);
 
     if(name.empty() || EndsWith(name, "::")) {
