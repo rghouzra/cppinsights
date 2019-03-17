@@ -2019,13 +2019,13 @@ void CodeGenerator::InsertArg(const CXXNoexceptExpr* stmt)
 
 void CodeGenerator::InsertArg(const FunctionTemplateDecl* stmt)
 {
-    InsertTemplateParameters(*stmt->getTemplateParameters());
+    // InsertTemplateParameters(*stmt->getTemplateParameters());
     InsertArg(stmt->getTemplatedDecl());
 
     for(const auto* spec : stmt->specializations()) {
-        mOutputFormatHelper.AppendNewLine("AAAA");
+        mOutputFormatHelper.AppendNewLine("");
         InsertArg(spec);
-        mOutputFormatHelper.AppendNewLine("BBB");
+        mOutputFormatHelper.AppendNewLine("");
     }
     /*
         for(const auto spec : stmt->specializations()) {
@@ -2619,16 +2619,17 @@ void CodeGenerator::InsertAccessModifierAndNameWithReturnType(const FunctionDecl
     DPrint("%d %d\n", decl.isTemplated(), decl.isTemplateInstantiation());
 
     if(decl.isTemplated()) {
-        mOutputFormatHelper.AppendNewLine("template<>");
-    }
+        if(decl.getDescribedTemplate()) {
+            InsertTemplateParameters(*decl.getDescribedTemplate()->getTemplateParameters());
+        }
 
-    if(decl.isTemplateInstantiation()) {
+    } else if(decl.isTemplateInstantiation()) {
         mOutputFormatHelper.AppendNewLine("BBtemplate<>");
     }
 
     if(!isLambda && ((isFirstCxxMethodDecl && decl.isFunctionTemplateSpecialization()) ||
                      (!isFirstCxxMethodDecl && isClassTemplateSpec) || (!isFirstCxxMethodDecl && decl.isTemplated()))) {
-        mOutputFormatHelper.AppendNewLine("template<>");
+        // mOutputFormatHelper.AppendNewLine("template<>");
     }
 
     // types of conversion decls can be invalid to type at this place. So introduce a using
