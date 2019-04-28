@@ -109,6 +109,7 @@ SUPPORTED_STMT(ParenListExpr)
 SUPPORTED_STMT(SizeOfPackExpr)
 // SUPPORTED_STMT(ParenListExpr)
 SUPPORTED_STMT(ConstantExpr)
+SUPPORTED_STMT(CXXUnresolvedConstructExpr)
 
 #undef IGNORED_DECL
 #undef IGNORED_STMT

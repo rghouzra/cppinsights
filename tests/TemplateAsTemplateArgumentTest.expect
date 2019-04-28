@@ -1,7 +1,7 @@
 template<typename T> class my_array {};
 
-/* First instantiated from: TemplateAsTemplateArgumentTest.cpp:7 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: TemplateAsTemplateArgumentTest.cpp:7 */
 template<>
 class my_array<int>
 {
@@ -22,8 +22,8 @@ class Map
     C<V> value;
 };
 
-/* First instantiated from: TemplateAsTemplateArgumentTest.cpp:13 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: TemplateAsTemplateArgumentTest.cpp:13 */
 template<>
 class Map<int, int, my_array>
 {

@@ -5,8 +5,8 @@ class Foo
     struct Far;
 };
 
-/* First instantiated from: ClassWithoutDefinitionTest.cpp:10 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: ClassWithoutDefinitionTest.cpp:10 */
 template<>
 class Foo<int>
 {

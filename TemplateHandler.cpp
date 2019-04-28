@@ -9,6 +9,7 @@
 #include <type_traits>
 #include "ClangCompat.h"
 #include "CodeGenerator.h"
+#include "DPrint.h"
 #include "InsightsHelpers.h"
 #include "InsightsMatchers.h"
 #include "OutputFormatHelper.h"
@@ -50,31 +51,31 @@ inline constexpr bool is_same_v = std::is_same<T, U>::value;  // NOLINT
 
 /// \brief Insert the instantiated template with the resulting code.
 template<typename T>
-static OutputFormatHelper InsertInstantiatedTemplate(const T& decl, const MatchFinder::MatchResult& result)
+static OutputFormatHelper InsertInstantiatedTemplate(const T& decl, const MatchFinder::MatchResult&)
 {
     OutputFormatHelper outputFormatHelper{};
     outputFormatHelper.AppendNewLine();
     outputFormatHelper.AppendNewLine();
 
-    const auto& sm = GetSM(result);
+    //    const auto& sm = GetSM(result);
 
-    if constexpr(not is_same_v<VarTemplateDecl, T>) {  // NOLINT
+    /*if constexpr(not is_same_v<VarTemplateDecl, T>) {  // NOLINT
         InsertInstantiationPoint(outputFormatHelper, sm, decl.getPointOfInstantiation());
-    }
+    }*/
 
-    outputFormatHelper.AppendNewLine("#ifdef INSIGHTS_USE_TEMPLATE");
+    // outputFormatHelper.AppendNewLine("#ifdef INSIGHTS_USE_TEMPLATE");
     CodeGenerator codeGenerator{outputFormatHelper};
 
     if constexpr(is_same_v<VarTemplateDecl, T>) {
         for(const auto& spec : decl.specializations()) {
-            InsertInstantiationPoint(outputFormatHelper, sm, spec->getPointOfInstantiation());
+            // InsertInstantiationPoint(outputFormatHelper, sm, spec->getPointOfInstantiation());
             codeGenerator.InsertArg(spec);
         }
     } else {
         codeGenerator.InsertArg(&decl);
     }
 
-    outputFormatHelper.AppendNewLine("#endif");
+    // outputFormatHelper.AppendNewLine("#endif");
 
     return outputFormatHelper;
 }
@@ -87,8 +88,9 @@ TemplateHandler::TemplateHandler(Rewriter& rewrite, MatchFinder& matcher)
         functionDecl(allOf(unless(isExpansionInSystemHeader()),
                            unless(isMacroOrInvalidLocation()),
                            hasParent(functionTemplateDecl(unless(hasParent(classTemplateSpecializationDecl())),
-                                                          unless(hasParent(cxxRecordDecl(isLambda()))))),
-                           isTemplateInstantiationPlain()))
+                                                          unless(hasParent(cxxRecordDecl())))),
+                           isTemplateInstantiationPlain()),
+                     unless(hasAncestor(cxxRecordDecl())))
             .bind("func"),
         this);
 
@@ -114,10 +116,13 @@ TemplateHandler::TemplateHandler(Rewriter& rewrite, MatchFinder& matcher)
 
 void TemplateHandler::run(const MatchFinder::MatchResult& result)
 {
+    DPrint("asdfasdfsd\n");
     if(const auto* functionDecl = result.Nodes.getNodeAs<FunctionDecl>("func")) {
         if(not functionDecl->getBody()) {
             return;
         }
+
+        functionDecl->dump();
 
         OutputFormatHelper outputFormatHelper = InsertInstantiatedTemplate(*functionDecl, result);
         const auto         endOfCond          = FindLocationAfterSemi(GetEndLoc(*functionDecl), result);

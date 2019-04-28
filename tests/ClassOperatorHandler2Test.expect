@@ -13,64 +13,63 @@ void f(int &)
 
 class Foo
 {
-public:
-    inline Foo(int x)
-    : mX{x}
-    {
-    }
-    
-    
-
-    using retType_23_5 = const int;
-    inline operator retType_23_5 () const
-    {
-      return this->mX;
-    }
-    
-    inline Foo operator++(int)
-    {
-      Foo old = Foo(*this) /* NRVO variable */;
-      printf("  ======\n");
-      ++this->mX;
-      printf("  ++++++\n");
-      return Foo(old);
-    }
-    
-    inline Foo & operator++()
-    {
-      ++this->mX;
-      return *this;
-    }
-    
-
-    inline Foo operator--(int)
-    {
-      Foo old = Foo(*this) /* NRVO variable */;
-      printf("  ======\n");
-      --this->mX;
-      printf("  ++++++\n");
-      return Foo(old);
-    }
-    
-    inline Foo & operator--()
-    {
-      --this->mX;
-      return *this;
-    }
-    
-    
-    inline int Get() const
-    {
-      return this->mX;
-    }
-    
-
-private:
-    int mX;
-// public: inline constexpr Foo(const Foo &) noexcept;
-// public: inline constexpr Foo(Foo &&) noexcept;
-// public: inline ~Foo() noexcept;
+  
+  public: 
+  inline Foo(int x)
+  : mX{x}
+  {
+  }
+  
+  using retType_23_5 = const int;
+  inline operator retType_23_5 () const
+  {
+    return this->mX;
+  }
+  
+  inline Foo operator++(int)
+  {
+    Foo old = Foo(*this) /* NRVO variable */;
+    printf("  ======\n");
+    ++this->mX;
+    printf("  ++++++\n");
+    return Foo(old);
+  }
+  
+  inline Foo & operator++()
+  {
+    ++this->mX;
+    return *this;
+  }
+  
+  inline Foo operator--(int)
+  {
+    Foo old = Foo(*this) /* NRVO variable */;
+    printf("  ======\n");
+    --this->mX;
+    printf("  ++++++\n");
+    return Foo(old);
+  }
+  
+  inline Foo & operator--()
+  {
+    --this->mX;
+    return *this;
+  }
+  
+  inline int Get() const
+  {
+    return this->mX;
+  }
+  
+  
+  private: 
+  int mX;
+  // inline constexpr Foo(const Foo &) noexcept = default;
+  // inline constexpr Foo(Foo &&) noexcept = default;
+  // inline ~Foo() noexcept = default;
 };
+
+
 
 int main()
 {

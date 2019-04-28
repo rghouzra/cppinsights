@@ -5,8 +5,8 @@ void foo(F&& f)
 {
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue50_3.cpp:18 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void foo<int &&(&)(int &&)>(int &&(&f)(int &&))
 {

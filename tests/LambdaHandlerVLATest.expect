@@ -27,8 +27,8 @@ struct SA
   int nt;
 };
 
-/* First instantiated from: LambdaHandlerVLATest.cpp:59 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: LambdaHandlerVLATest.cpp:59 */
 template<>
 struct SA<2>
 {
@@ -72,8 +72,8 @@ inline void test(TB aa)
 {
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: LambdaHandlerVLATest.cpp:40 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline void test<__lambda_40_8>(__lambda_40_8 aa)
 {

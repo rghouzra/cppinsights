@@ -12,24 +12,36 @@ public:
     }
 };
 
-/* First instantiated from: FunctionTemplateDecl3Test.cpp:17 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: FunctionTemplateDecl3Test.cpp:17 */
 template<>
 class Test<int>
 {
   
   public: 
-  // inline constexpr Test() noexcept = default;
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<int> & operator=(const Test<T2> & other);
+  
+  #ifdef INSIGHTS_USE_TEMPLATE_INNER
+  /* First instantiated from: FunctionTemplateDecl3Test.cpp:21 */
   template<>
   inline Test<int> & operator=<char>(const Test<char> & other)
   {
     return *this;
   }
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE_INNER
+  /* First instantiated from: FunctionTemplateDecl3Test.cpp:22 */
   template<>
   inline Test<int> & operator=<float>(const Test<float> & other)
   {
     return *this;
   }
+  #endif
+  
   // inline constexpr Test(const Test<int> &) = default;
   // inline constexpr Test(Test<int> &&) = default;
   // inline constexpr Test<int> & operator=(const Test<int> &) = default;
@@ -39,19 +51,26 @@ class Test<int>
 #endif
 
 
-/* First instantiated from: FunctionTemplateDecl3Test.cpp:18 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: FunctionTemplateDecl3Test.cpp:18 */
 template<>
 class Test<char>
 {
   
   public: 
-  // inline constexpr Test() noexcept = default;
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<char> & operator=(const Test<T2> & other);
+  
+  #ifdef INSIGHTS_USE_TEMPLATE_INNER
+  /* First instantiated from: FunctionTemplateDecl3Test.cpp:24 */
   template<>
   inline Test<char> & operator=<int>(const Test<int> & other)
   {
     return *this;
   }
+  #endif
+  
   // inline constexpr Test(const Test<char> &) = default;
   // inline constexpr Test(Test<char> &&) = default;
   // inline constexpr Test<char> & operator=(const Test<char> &) = default;
@@ -61,14 +80,16 @@ class Test<char>
 #endif
 
 
-/* First instantiated from: FunctionTemplateDecl3Test.cpp:19 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: FunctionTemplateDecl3Test.cpp:19 */
 template<>
 class Test<float>
 {
   
   public: 
-  // inline constexpr Test() noexcept = default;
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<float> & operator=(const Test<T2> & other);
   // inline constexpr Test(const Test<float> &) = default;
   // inline constexpr Test(Test<float> &&) = default;
 };

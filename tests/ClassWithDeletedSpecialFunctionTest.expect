@@ -7,8 +7,8 @@ public:
     Foo(int){}
 };
 
-/* First instantiated from: ClassWithDeletedSpecialFunctionTest.cpp:12 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: ClassWithDeletedSpecialFunctionTest.cpp:12 */
 template<>
 class Foo<int>
 {

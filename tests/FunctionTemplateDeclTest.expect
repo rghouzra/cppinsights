@@ -12,19 +12,26 @@ public:
     }
 };
 
-/* First instantiated from: FunctionTemplateDeclTest.cpp:17 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: FunctionTemplateDeclTest.cpp:17 */
 template<>
 class Test<int>
 {
   
   public: 
-  // inline constexpr Test() noexcept = default;
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<int> & operator=(const Test<T2> & other);
+  
+  #ifdef INSIGHTS_USE_TEMPLATE_INNER
+  /* First instantiated from: FunctionTemplateDeclTest.cpp:20 */
   template<>
   inline Test<int> & operator=<char>(const Test<char> & other)
   {
     return *this;
   }
+  #endif
+  
   // inline constexpr Test(const Test<int> &) = default;
   // inline constexpr Test(Test<int> &&) = default;
   // inline constexpr Test<int> & operator=(const Test<int> &) = default;
@@ -34,19 +41,26 @@ class Test<int>
 #endif
 
 
-/* First instantiated from: FunctionTemplateDeclTest.cpp:18 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: FunctionTemplateDeclTest.cpp:18 */
 template<>
 class Test<char>
 {
   
   public: 
-  // inline constexpr Test() noexcept = default;
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<char> & operator=(const Test<T2> & other);
+  
+  #ifdef INSIGHTS_USE_TEMPLATE_INNER
+  /* First instantiated from: FunctionTemplateDeclTest.cpp:22 */
   template<>
   inline Test<char> & operator=<int>(const Test<int> & other)
   {
     return *this;
   }
+  #endif
+  
   // inline constexpr Test(const Test<char> &) = default;
   // inline constexpr Test(Test<char> &&) = default;
   // inline constexpr Test<char> & operator=(const Test<char> &) = default;

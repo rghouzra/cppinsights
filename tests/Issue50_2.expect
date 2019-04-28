@@ -3,18 +3,20 @@
 
 struct Test
 {
-// public: inline constexpr Test() noexcept;
-// public: inline constexpr Test(const Test &);
-// public: inline constexpr Test(Test &&);
+  // inline constexpr Test() noexcept = default;
+  // inline constexpr Test(const Test &) = default;
+  // inline constexpr Test(Test &&) = default;
 };
+
+
 
 template<class T>
 void foo(T&& t)
 {
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue50_2.cpp:16 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void foo<Test &>(Test & t)
 {
@@ -22,8 +24,8 @@ void foo<Test &>(Test & t)
 #endif
 
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue50_2.cpp:19 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void foo<int &>(int & t)
 {
@@ -31,8 +33,8 @@ void foo<int &>(int & t)
 #endif
 
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue50_2.cpp:22 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void foo<long>(long && t)
 {

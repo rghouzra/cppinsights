@@ -5,8 +5,8 @@ T create(Args&& ... args){
   return T(std::forward<Args>(args)...);
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: CXXScalarValueInitExprTest.cpp:10 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 double create<double, >()
 {

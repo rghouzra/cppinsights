@@ -19,8 +19,8 @@ T Person<T>::run(T speed, bool left )
 
 
 
-/* First instantiated from: Issue123.cpp:20 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: Issue123.cpp:20 */
 template<>
 struct Person<int>
 {
@@ -41,7 +41,8 @@ struct Person<int>
 };
 
 #endif
-;
+
+
 
 int main()
 {

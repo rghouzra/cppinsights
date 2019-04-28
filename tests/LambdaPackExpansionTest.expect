@@ -6,8 +6,8 @@ int g(Args ...)
     return 1;
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: LambdaPackExpansionTest.cpp:19 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int g<int, int, int, int, int>(int __0, int __1, int __2, int __3, int __4)
 {
@@ -30,8 +30,8 @@ void f2(Args... args) {
     lm();
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: LambdaPackExpansionTest.cpp:26 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void f2<int, int, int, int, int>(int __args0, int __args1, int __args2, int __args3, int __args4)
 {

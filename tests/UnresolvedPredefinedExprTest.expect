@@ -10,8 +10,8 @@ public:
     }
 };
 
-/* First instantiated from: UnresolvedPredefinedExprTest.cpp:17 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: UnresolvedPredefinedExprTest.cpp:17 */
 template<>
 class Test<int>
 {

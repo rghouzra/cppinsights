@@ -181,6 +181,9 @@ protected:
     bool InsertLambdaStaticInvoker(const CXXMethodDecl* cxxMethodDecl);
     void InsertTemplateParameters(const TemplateParameterList& list);
 
+    void InsertTemplateGuardBegin(const FunctionDecl* stmt);
+    void InsertTemplateGuardEnd(const FunctionDecl* stmt);
+
     void PrintNamespace(const NestedNameSpecifier* namespaceSpecifier);
     void ParseDeclContext(const DeclContext* Ctx);
 

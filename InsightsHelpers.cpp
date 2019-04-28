@@ -29,9 +29,27 @@ static const struct CppInsightsPrintingPolicy : PrintingPolicy
 } InsightsPrintingPolicy{};  // NOLINT
 //-----------------------------------------------------------------------------
 
+static std::string ReplaceAll(std::string str, const std::string& from, const std::string& to)
+{
+    if(Contains(str, "type-parameter-")) {
+        for(size_t start_pos = 0; (start_pos = str.find(from, start_pos)) != std::string::npos;
+            start_pos += to.length()) {
+            str.replace(start_pos, from.length(), to);
+        }
+    }
+
+    return str;
+}
+//-----------------------------------------------------------------------------
+
+std::string ReplaceDash(std::string&& str)
+{
+    return ReplaceAll(str, "-", "_");
+}
+
 static const std::string GetAsCPPStyleString(const QualType& t)
 {
-    return t.getAsString(InsightsPrintingPolicy);
+    return ReplaceDash(t.getAsString(InsightsPrintingPolicy));
 }
 //-----------------------------------------------------------------------------
 
@@ -349,6 +367,28 @@ static std::string GetName(const QualType& t, const Unqualified unqualified = Un
 }  // namespace details
 //-----------------------------------------------------------------------------
 
+std::string GetName(const CXXRecordDecl& RD)
+{
+    if(RD.isLambda()) {
+        return GetLambdaName(RD);
+    }
+
+    const auto* declCtx = RD.getDeclContext()->getLexicalParent();
+    const bool  isFriend{(RD.getFriendObjectKind() != Decl::FOK_None)};
+    const bool  hasNamespace{(declCtx && (declCtx->isNamespace() && not declCtx->isInlineNamespace()) &&
+                             !declCtx->isTransparentContext() && !isFriend)};
+
+    DPrint("friend: %d %d %d \n", isFriend, declCtx && declCtx->isNamespace(), declCtx && declCtx->isInlineNamespace());
+
+    // get the namespace as well
+    if(hasNamespace) {
+        return ReplaceDash(details::GetQualifiedName(RD));
+    }
+
+    return ReplaceDash(RD.getNameAsString());
+}
+//-----------------------------------------------------------------------------
+
 std::string GetName(const QualType& t, const Unqualified unqualified)
 {
     return details::GetName(t, unqualified);
@@ -428,7 +468,12 @@ std::string GetTypeNameAsParameter(const QualType& t, const std::string& varName
             typeName += StrCat(" ", varName);
         }
     } else if(t->isFunctionPointerType()) {
-        InsertAfter(typeName, "(*", varName);
+        if(Contains(typeName, "(*")) {
+            InsertAfter(typeName, "(*", varName);
+        } else {
+            typeName += StrCat(" ", varName);
+        }
+
     } else if(!t->isArrayType() && !varName.empty()) {
         typeName += StrCat(" ", varName);
     }
@@ -517,6 +562,7 @@ static std::string GetTemplateParameterPackArgumentName(std::string& name, const
 std::string GetName(const DeclRefExpr& declRefExpr)
 {
     std::string name{};
+
     const auto* declRefDecl = declRefExpr.getDecl();
     const auto* declCtx     = declRefDecl->getDeclContext();
     const bool  isFriend{(declRefDecl->getFriendObjectKind() != Decl::FOK_None)};

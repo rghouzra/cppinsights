@@ -13,8 +13,8 @@ void Test(T& t)
 {
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: StdFunctionTest.cpp:17 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void Test<std::function<void ()> >(std::function<void ()> & t)
 {

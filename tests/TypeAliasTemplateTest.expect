@@ -14,16 +14,24 @@ struct F
   F(B...) { }
 };
 
-/* First instantiated from: TypeAliasTemplateTest.cpp:19 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: TypeAliasTemplateTest.cpp:19 */
 template<>
 struct F<int>
 {
   using SameSize = bool_constant<1 == sizeof...(B)>;
+  template<typename ... B, typename type_parameter_0_1 = SameSize<B...>>
+  inline F(B...);
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE_INNER
+  /* First instantiated from: TypeAliasTemplateTest.cpp:19 */
   template<>
   inline F<int, bool_constant<1> >(int __0)
   {
   }
+  #endif
+  
   
   // inline constexpr F(const F<int> &) = default;
   // inline constexpr F(F<int> &&) = default;

@@ -2,14 +2,17 @@
 
 #include <map>
 
-struct Person {
-    int age;
-    inline int yob() const
-    {
-      return 2018 - this->age;
-    }
-    
+struct Person
+{
+  int age;
+  inline int yob() const
+  {
+    return 2018 - this->age;
+  }
+  
 };
+
+
 
 template<typename Key, typename POD>
 Key extractKey(Key POD::* pMember);
@@ -33,8 +36,8 @@ struct Index {
   }
 };
 
-/* First instantiated from: Issue60.cpp:34 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: Issue60.cpp:34 */
 template<>
 struct Index<&Person::age>
 {

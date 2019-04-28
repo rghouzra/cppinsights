@@ -8,8 +8,8 @@ void fillTuples(std::vector<Tuple_t> tuples) {
   tuples.emplace_back("hello", 1);
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TupeInRangeBasedForTest.cpp:13 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void fillTuples<std::tuple<std::basic_string<char>, int> >(std::vector<std::tuple<std::basic_string<char>, int>, std::allocator<std::tuple<std::basic_string<char>, int> > > tuples)
 {

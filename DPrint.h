@@ -90,7 +90,7 @@ inline void Dump([[maybe_unused]] const T* stmt)
 {
 #ifdef INSIGHTS_DEBUG
     if(stmt) {
-        stmt->dump();
+        // stmt->dump();
     }
 #endif /* INSIGHTS_DEBUG */
 }

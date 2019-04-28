@@ -1,16 +1,25 @@
-struct S { void f();
-            // public: inline ~S() noexcept;
+struct S
+{
+  void f();
+  
+  // inline ~S() noexcept = default;
 };
-struct T {// public: inline ~T() noexcept;
+
+
+struct T
+{
+  // inline ~T() noexcept = default;
 };
+
+
 
 template <typename T>
 auto f(T, int) -> decltype(T{}.f()) {
     //printf( "Has member function named f().\n");
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: AutoHandler3Test.cpp:15 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void f<S>(S, int)
 {
@@ -23,8 +32,8 @@ void f(T, ...) {
     //printf( "No member function named f().\n");
 }
 
+#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: AutoHandler3Test.cpp:16 */
-#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void f<T>(T, ...)
 {

@@ -5,8 +5,8 @@ public:
     void Func();
 };
 
-/* First instantiated from: CXXMethodTemplateExplicitSpecializationTest.cpp:10 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: CXXMethodTemplateExplicitSpecializationTest.cpp:10 */
 template<>
 class Foo<int>
 {
@@ -22,8 +22,8 @@ class Foo<int>
 #endif
 
 
-/* First instantiated from: CXXMethodTemplateExplicitSpecializationTest.cpp:15 */
 #ifdef INSIGHTS_USE_TEMPLATE
+/* First instantiated from: CXXMethodTemplateExplicitSpecializationTest.cpp:15 */
 template<>
 class Foo<char>
 {
@@ -45,12 +45,10 @@ void Foo<int>::Func()
 {
 }
 
-
 template<>
 void Foo<char>::Func()
 {
 }
-
 
 int main()
 {

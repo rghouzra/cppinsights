@@ -24,29 +24,27 @@ FunctionDeclHandler::FunctionDeclHandler(Rewriter& rewrite, MatchFinder& matcher
 : InsightsBase(rewrite)
 {
     matcher.addMatcher(functionDecl(unless(anyOf(cxxMethodDecl(),
-                                  isExpansionInSystemHeader(),
-                                  isTemplate,
-                                  hasAncestor(friendDecl()),    // friendDecl has functionDecl as child
-                                  hasAncestor(functionDecl()),  // prevent forward declarations
-                                  isMacroOrInvalidLocation())))
-            .bind("funcDecl"),
-        this);
+                                                 isExpansionInSystemHeader(),
+                                                 isTemplate,
+                                                 hasAncestor(friendDecl()),    // friendDecl has functionDecl as child
+                                                 hasAncestor(functionDecl()),  // prevent forward declarations
+                                                 isMacroOrInvalidLocation())))
+                           .bind("funcDecl"),
+                       this);
 
     static const auto hasTemplateDescendant = anyOf(hasDescendant(classTemplateDecl()),
                                                     hasDescendant(functionTemplateDecl()),
                                                     hasDescendant(classTemplateSpecializationDecl()));
 
     matcher.addMatcher(friendDecl(unless(anyOf(cxxMethodDecl(),
-                                isExpansionInSystemHeader(),
-                                isTemplate,
-                                hasTemplateDescendant,
-                                hasAncestor(functionDecl()),  // prevent forward declarations
-                                isMacroOrInvalidLocation())))
-            .bind("friendDecl"),
-        this);
-
-    // Match the using Base::Base statement and remove it.
-    matcher.addMatcher(usingDecl(hasParent(cxxRecordDecl())).bind("using"), this);
+                                               hasAncestor(cxxRecordDecl()),
+                                               isExpansionInSystemHeader(),
+                                               isTemplate,
+                                               hasTemplateDescendant,
+                                               hasAncestor(functionDecl()),  // prevent forward declarations
+                                               isMacroOrInvalidLocation())))
+                           .bind("friendDecl"),
+                       this);
 }
 //-----------------------------------------------------------------------------
 
@@ -95,17 +93,6 @@ void FunctionDeclHandler::run(const MatchFinder::MatchResult& result)
 
         DPrint("fd rw: %s\n", outputFormatHelper.GetString());
         mRewrite.ReplaceText(friendDecl->getSourceRange(), outputFormatHelper.GetString());
-    } else if(const auto* usingDecl = result.Nodes.getNodeAs<UsingDecl>("using")) {
-        // Check if one of the shadows contains a ConstructorUsingShadowDecl which implies Base::Base.
-        for(const auto& shadow : usingDecl->shadows()) {
-            if(isa<ConstructorUsingShadowDecl>(shadow)) {
-                // This is a base ctor using. Remove this using. The actual code is inserted by the FunctionDecl
-                // matcher.
-                const auto sr = GetSourceRangeAfterSemi(usingDecl->getSourceRange(), result);
-                mRewrite.RemoveText(sr);
-                break;
-            }
-        }
     }
 }
 //-----------------------------------------------------------------------------
