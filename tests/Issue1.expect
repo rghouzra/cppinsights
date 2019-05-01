@@ -2,8 +2,8 @@
 
 template<typename T> T foo() {return T(42); }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue1.cpp:6 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int foo<int>()
 {
@@ -13,8 +13,8 @@ int foo<int>()
  
 template<typename T> T fooGood() {return T{42}; }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue1.cpp:7 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int fooGood<int>()
 {

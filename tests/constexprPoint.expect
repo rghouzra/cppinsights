@@ -32,6 +32,7 @@
   private: 
   double mX;
   double mY;
+  public: 
   // inline constexpr Point(const Point &) = default;
   // inline constexpr Point(Point &&) = default;
 };

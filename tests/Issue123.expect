@@ -19,8 +19,6 @@ T Person<T>::run(T speed, bool left )
 
 
 
-#ifdef INSIGHTS_USE_TEMPLATE
-/* First instantiated from: Issue123.cpp:20 */
 template<>
 struct Person<int>
 {
@@ -40,7 +38,6 @@ struct Person<int>
   // inline constexpr Person(Person<int> &&) = default;
 };
 
-#endif
 
 
 

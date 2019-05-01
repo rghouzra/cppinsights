@@ -46,6 +46,7 @@ class Bla : public Foo
   private: 
   using Bla::Bla;
   int mX;
+  public: 
   // inline Bla() = default;
   // inline constexpr Bla(const Bla &) = default;
   // inline constexpr Bla(Bla &&) = default;

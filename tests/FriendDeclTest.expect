@@ -20,8 +20,11 @@ class Foo
   {
   };
   
+  public: 
   friend class DearFriend;
+  private: 
   int mI;
+  public: 
   friend void ChangePrivate(Foo &);
   // inline constexpr Foo(const Foo &) = default;
   // inline constexpr Foo(Foo &&) = default;

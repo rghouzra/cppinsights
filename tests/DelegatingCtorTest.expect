@@ -9,8 +9,8 @@ struct Foo {
   int _y;
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: DelegatingCtorTest.cpp:21 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Foo<int>
 {
@@ -35,8 +35,8 @@ struct Foo<int>
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: DelegatingCtorTest.cpp:14 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Foo<char>
 {
@@ -65,8 +65,8 @@ struct Bar : Foo<T>
     Bar(int x) : Foo<T>(x, 2) {}
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: DelegatingCtorTest.cpp:24 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Bar<char> : public Foo<char>
 {

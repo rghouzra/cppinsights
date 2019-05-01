@@ -11,8 +11,8 @@ public:
    int* end()   { return size>0 ? &data[size-1] : nullptr; }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: RangeForStmtHandler4Test.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class MyArrayWrapper<int>
 {

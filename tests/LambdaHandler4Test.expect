@@ -7,7 +7,8 @@ class Foo
     class __lambda_6_18
     {
       Foo * __this;
-      public: inline /*constexpr */ void operator()() const
+      public: 
+      inline /*constexpr */ void operator()() const
       {
         __this->Get();
       }
@@ -24,7 +25,8 @@ class Foo
     class __lambda_10_18
     {
       Foo * __this;
-      public: inline /*constexpr */ void operator()() const
+      public: 
+      inline /*constexpr */ void operator()() const
       {
         __this->Get();
       }
@@ -41,7 +43,8 @@ class Foo
     class __lambda_14_18
     {
       Foo __this;
-      public: inline /*constexpr */ void operator()() const
+      public: 
+      inline /*constexpr */ void operator()() const
       {
         (&__this)->Get();
       }
@@ -64,6 +67,7 @@ class Foo
   
   private: 
   int mX;
+  public: 
   // inline constexpr Foo(const Foo &) noexcept = default;
   // inline constexpr Foo(Foo &&) = default;
   // inline ~Foo() noexcept = default;
@@ -85,7 +89,8 @@ struct X
     class __lambda_35_9
     {
       X * __this;
-      public: inline /*constexpr */ int operator()() const
+      public: 
+      inline /*constexpr */ int operator()() const
       {
         return __this->operator()(__this->x + __this->y);
       }

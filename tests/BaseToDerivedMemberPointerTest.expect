@@ -1,5 +1,6 @@
 class Base
 {
+  public: 
   // inline constexpr Base() noexcept = default;
   // inline ~Base() = default;
   // inline constexpr Base(const Base &) = default;
@@ -10,6 +11,7 @@ class Base
 
 class Derived : public Base
 {
+  public: 
   // inline constexpr Derived() noexcept = default;
   // inline constexpr Derived(const Derived &) = default;
   // inline constexpr Derived(Derived &&) = default;

@@ -12,8 +12,8 @@ public:
 
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TypeIdInTemplateTest.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Foo<int>
 {

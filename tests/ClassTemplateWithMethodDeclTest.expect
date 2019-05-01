@@ -6,8 +6,8 @@ struct Foo
 	void bar();
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: ClassTemplateWithMethodDeclTest.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Foo<int>
 {

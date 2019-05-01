@@ -11,8 +11,8 @@ void (&&f(T))()
   return g;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue124_2Tmpl.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void (&&f<long>(long))()
 {
@@ -21,8 +21,8 @@ void (&&f<long>(long))()
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue124_2Tmpl.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void (&&f<int>(int))()
 {

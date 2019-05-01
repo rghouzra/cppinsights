@@ -14,8 +14,8 @@ T circular_area(T r)
     return pi<T> * r * r;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: VarTemplateDecl3Test.cpp:33 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int circular_area<int>(int r)
 {
@@ -31,8 +31,8 @@ struct X
    T y;
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: VarTemplateDecl3Test.cpp:30 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct X<int>
 {
@@ -50,8 +50,8 @@ X<T> DoIt(T x)
     return { circular_area(x), circular_area(x+2)};
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: VarTemplateDecl3Test.cpp:30 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 X<int> DoIt<int>(int x)
 {

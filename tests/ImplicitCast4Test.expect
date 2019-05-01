@@ -6,8 +6,8 @@ void Test(){
     typedef std::chrono::duration<double, std::ratio<60*60*24*365>> withCalculation; // contains an implicit cast in the template definition
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: ImplicitCast4Test.cpp:15 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void Test<int>()
 {

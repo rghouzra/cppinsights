@@ -29,8 +29,8 @@ public:
     T& operator[](const std::size_t i) { return v[i]; }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: ClassOperatorHandler9Test.cpp:34 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class MyVector<int>
 {
@@ -95,8 +95,8 @@ MyVector<T> operator*(const MyVector<T>& a, const MyVector<T>& b)
     return result;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: ClassOperatorHandler9Test.cpp:70 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 MyVector<int> operator*<int>(const MyVector<int> & a, const MyVector<int> & b)
 {

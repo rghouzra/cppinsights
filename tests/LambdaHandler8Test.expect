@@ -4,8 +4,8 @@ int Test(T&& t)
     return t();
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: LambdaHandler8Test.cpp:9 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int Test<__lambda_9_18>(__lambda_9_18 && t)
 {
@@ -20,7 +20,8 @@ int get(int & v)
   class __lambda_9_18
   {
     int & v;
-    public: inline /*constexpr */ int operator()() const
+    public: 
+    inline /*constexpr */ int operator()() const
     {
       return v;
     }

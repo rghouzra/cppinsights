@@ -13,8 +13,8 @@ public:
     }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: CXXDefaultInitExprTest.cpp:18 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Alloc<int, 0>
 {
@@ -37,8 +37,8 @@ class Alloc<int, 0>
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: CXXDefaultInitExprTest.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Alloc<char, 1>
 {

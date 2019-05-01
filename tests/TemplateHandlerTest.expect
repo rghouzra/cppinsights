@@ -7,8 +7,8 @@ constexpr T min(const T& a, const T& b)
     return (a < b) ? a : b;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:55 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr int min<int>(const int & a, const int & b)
 {
@@ -17,8 +17,8 @@ inline constexpr int min<int>(const int & a, const int & b)
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:59 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr double min<double>(const double & a, const double & b)
 {
@@ -33,8 +33,8 @@ static T max(const T& a, const T& b)
     return (a > b) ? a : b;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:67 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int max<int>(const int & a, const int & b)
 {
@@ -43,8 +43,8 @@ int max<int>(const int & a, const int & b)
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:68 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 double max<double>(const double & a, const double & b)
 {
@@ -68,8 +68,8 @@ private:
     const T mX;
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TemplateHandlerTest.cpp:61 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Template<int>
 {
@@ -85,6 +85,7 @@ class Template<int>
   
   private: 
   const int mX;
+  public: 
   // inline constexpr Template(const Template<int> &) = default;
   // inline constexpr Template(Template<int> &&) = default;
 };
@@ -92,8 +93,8 @@ class Template<int>
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TemplateHandlerTest.cpp:63 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Template<double>
 {
@@ -109,6 +110,7 @@ class Template<double>
   
   private: 
   const double mX;
+  public: 
   // inline constexpr Template(const Template<double> &) = default;
   // inline constexpr Template(Template<double> &&) = default;
 };
@@ -137,8 +139,8 @@ void tprintf(const char* format, T value, Targs... Fargs) // recursive variadic 
     }
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:65 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void tprintf<const char *, char, int>(const char * format, const char * value, char __Fargs2, int __Fargs3)
 {
@@ -157,8 +159,8 @@ void tprintf<const char *, char, int>(const char * format, const char * value, c
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:44 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void tprintf<char, int>(const char * format, char value, int __Fargs2)
 {
@@ -177,8 +179,8 @@ void tprintf<char, int>(const char * format, char value, int __Fargs2)
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandlerTest.cpp:44 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void tprintf<int, >(const char * format, int value)
 {

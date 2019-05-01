@@ -8,8 +8,8 @@ bool Is(const T& x)
     return b == x;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandler4Test.cpp:13 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool Is<int>(const int & x)
 {

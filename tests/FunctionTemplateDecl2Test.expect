@@ -9,8 +9,8 @@ class Test
     return *this;
   }
   
-  #ifdef INSIGHTS_USE_TEMPLATE_INNER
   /* First instantiated from: FunctionTemplateDecl2Test.cpp:19 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline Test & operator=<int>(const int & other)
   {
@@ -19,8 +19,8 @@ class Test
   #endif
   
   
-  #ifdef INSIGHTS_USE_TEMPLATE_INNER
   /* First instantiated from: FunctionTemplateDecl2Test.cpp:21 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline Test & operator=<char>(const char & other)
   {

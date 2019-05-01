@@ -7,8 +7,8 @@ class Test
   {
   }
   
-  #ifdef INSIGHTS_USE_TEMPLATE_INNER
   /* First instantiated from: LambdaInMemberCallExprTest.cpp:13 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void foo<__lambda_13_12>(__lambda_13_12 &&)
   {
@@ -28,7 +28,8 @@ int main()
     
   class __lambda_13_12
   {
-    public: inline /*constexpr */ void operator()() const
+    public: 
+    inline /*constexpr */ void operator()() const
     {
     }
     

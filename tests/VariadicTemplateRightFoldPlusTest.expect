@@ -5,8 +5,8 @@ constexpr int fold_minus_impl_rf() {
     return ( 5 - ... - Ints);
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: VariadicTemplateRightFoldPlusTest.cpp:8 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr int fold_minus_impl_rf<0>()
 {
@@ -15,8 +15,8 @@ inline constexpr int fold_minus_impl_rf<0>()
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: VariadicTemplateRightFoldPlusTest.cpp:9 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr int fold_minus_impl_rf<0, 1>()
 {
@@ -35,8 +35,8 @@ constexpr int fold_negative_minus_impl_rf() {
     return ( -5 - ... - Ints);
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: VariadicTemplateRightFoldPlusTest.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr int fold_negative_minus_impl_rf<0>()
 {
@@ -45,8 +45,8 @@ inline constexpr int fold_negative_minus_impl_rf<0>()
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: VariadicTemplateRightFoldPlusTest.cpp:17 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr int fold_negative_minus_impl_rf<0, 1>()
 {

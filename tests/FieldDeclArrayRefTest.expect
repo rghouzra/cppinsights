@@ -13,8 +13,8 @@ public:
     array(T (&reference)[SIZE]) : data(reference) { }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: FieldDeclArrayRefTest.cpp:17 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class array<int, 2>
 {

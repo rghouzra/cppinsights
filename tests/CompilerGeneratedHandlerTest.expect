@@ -62,6 +62,7 @@ class E
   
   private: 
   int i;
+  public: 
   // inline constexpr E(const E &) = default;
   // inline constexpr E(E &&) = default;
 };

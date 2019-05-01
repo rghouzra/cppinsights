@@ -21,6 +21,7 @@ class D
   
   private: 
   std::unique_ptr<int, std::default_delete<int> > p;
+  public: 
   // inline constexpr D(const D &) = default;
   // inline D(D &&) = default;
   // inline D & operator=(D &&) = default;

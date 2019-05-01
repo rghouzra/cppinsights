@@ -9,8 +9,8 @@ protected:
     bool Mo() { return false; }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: ClassTemplateTest.cpp:12 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Foo<int>
 {
@@ -24,6 +24,7 @@ class Foo<int>
     return false;
   }
   
+  public: 
   // inline ~Foo() = default;
   // inline constexpr Foo(const Foo<int> &) = default;
   // inline constexpr Foo(Foo<int> &&) = default;

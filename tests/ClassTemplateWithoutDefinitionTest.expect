@@ -1,11 +1,12 @@
 template <typename T>
 class Foo{};
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: ClassTemplateWithoutDefinitionTest.cpp:11 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Foo<double>
 {
+  public: 
   // inline constexpr Foo() noexcept = default;
   // inline constexpr Foo(const Foo<double> &) = default;
   // inline constexpr Foo(Foo<double> &&) = default;

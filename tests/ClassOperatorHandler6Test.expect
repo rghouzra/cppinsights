@@ -7,6 +7,7 @@
 
 class Bar
 {
+  public: 
   // inline constexpr Bar() noexcept = default;
   // inline constexpr Bar(const Bar &) = default;
   // inline constexpr Bar(Bar &&) = default;

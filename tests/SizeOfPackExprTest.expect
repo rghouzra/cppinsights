@@ -8,8 +8,8 @@ auto forward(F f, Types &&...args) {
   return sizeof...(args);
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: SizeOfPackExprTest.cpp:12 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 unsigned long forward<void (*)(int, int, int), int, int, int>(void (*f)(int, int, int), int && __args1, int && __args2, int && __args3)
 {

@@ -21,6 +21,7 @@ class Singleton
   private: 
   inline Singleton() noexcept = default;
   int mX;
+  public: 
   // inline constexpr Singleton(const Singleton &) = default;
   // inline constexpr Singleton(Singleton &&) = default;
 };

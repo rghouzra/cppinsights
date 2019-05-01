@@ -9,8 +9,8 @@ int (&&f(T i))[2]
   return static_cast<int(&&)[2]>(a);
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue124_1Tmpl.cpp:14 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int (&&f<long>(long i))[2]
 {
@@ -19,8 +19,8 @@ int (&&f<long>(long i))[2]
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue124_1Tmpl.cpp:17 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int (&&f<int>(int i))[2]
 {

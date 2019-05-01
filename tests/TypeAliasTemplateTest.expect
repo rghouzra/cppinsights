@@ -14,8 +14,8 @@ struct F
   F(B...) { }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TypeAliasTemplateTest.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct F<int>
 {
@@ -24,8 +24,8 @@ struct F<int>
   inline F(B...);
   
   
-  #ifdef INSIGHTS_USE_TEMPLATE_INNER
   /* First instantiated from: TypeAliasTemplateTest.cpp:19 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline F<int, bool_constant<1> >(int __0)
   {

@@ -1,7 +1,7 @@
 template<class... Ts> struct visitor: Ts... { using Ts::operator()...; };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: VisitorTest.cpp:7 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct visitor<__lambda_8_7, __lambda_9_7> : public __lambda_8_7, public __lambda_9_7
 {
@@ -21,26 +21,28 @@ int main()
     
   class __lambda_8_7
   {
-    public: inline /*constexpr */ void operator()(int value) const
+    public: 
+    inline /*constexpr */ void operator()(int value) const
     {
     }
     
-    // public: inline /*constexpr */ __lambda_8_7 & operator=(const __lambda_8_7 &) = default;
-    // public: inline /*constexpr */ __lambda_8_7(const __lambda_8_7 &) = default;
-    // public: inline /*constexpr */ __lambda_8_7(__lambda_8_7 &&) noexcept = default;
+    // inline /*constexpr */ __lambda_8_7 & operator=(const __lambda_8_7 &) = default;
+    // inline /*constexpr */ __lambda_8_7(const __lambda_8_7 &) = default;
+    // inline /*constexpr */ __lambda_8_7(__lambda_8_7 &&) noexcept = default;
     
   };
   
   
   class __lambda_9_7
   {
-    public: inline /*constexpr */ void operator()(const char * value) const
+    public: 
+    inline /*constexpr */ void operator()(const char * value) const
     {
     }
     
-    // public: inline /*constexpr */ __lambda_9_7 & operator=(const __lambda_9_7 &) = default;
-    // public: inline /*constexpr */ __lambda_9_7(const __lambda_9_7 &) = default;
-    // public: inline /*constexpr */ __lambda_9_7(__lambda_9_7 &&) noexcept = default;
+    // inline /*constexpr */ __lambda_9_7 & operator=(const __lambda_9_7 &) = default;
+    // inline /*constexpr */ __lambda_9_7(const __lambda_9_7 &) = default;
+    // inline /*constexpr */ __lambda_9_7(__lambda_9_7 &&) noexcept = default;
     
   };
   

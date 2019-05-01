@@ -22,6 +22,7 @@ struct B
   protected: 
   int m;
   using value_type = int;
+  public: 
   // inline B & operator=(const B &) = default;
   // inline B & operator=(B &&) = default;
   // inline ~B() = default;
@@ -46,8 +47,8 @@ struct D : B {
     void h(int) { std::cout << "D::h\n"; } // D::h(int) hides B::h(int)
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: UsingDeclTest.cpp:56 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct D<int> : public B
 {

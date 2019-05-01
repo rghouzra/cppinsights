@@ -27,6 +27,7 @@ class Singleton
   }
   
   int mX;
+  public: 
   // inline constexpr Singleton(const Singleton &) = default;
 };
 
@@ -68,6 +69,7 @@ class Bingleton
   
   private: 
   int mX;
+  public: 
   // inline constexpr Bingleton(const Bingleton &) = default;
 };
 

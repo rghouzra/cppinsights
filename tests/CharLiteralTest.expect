@@ -20,8 +20,8 @@ struct Foo
     void operator=(BT v) volatile { this->raw = v; }
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: CharLiteralTest.cpp:61 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Foo<int>
 {
@@ -47,8 +47,8 @@ struct Foo<int>
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: CharLiteralTest.cpp:60 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Foo<char>
 {
@@ -115,6 +115,7 @@ class Test
   private: 
   Char mData[1024];
   Foo<int> mLength;
+  public: 
   // inline constexpr Test(const Test &) = default;
   // inline constexpr Test(Test &&) = default;
   // inline constexpr Test & operator=(Test &&) = default;

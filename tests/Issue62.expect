@@ -4,8 +4,8 @@ int func(T... t) {
     return func(t...);
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: Issue62.cpp:6 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int func<int, int>(int __t0, int __t1)
 {

@@ -1,10 +1,11 @@
 template<typename T> class my_array {};
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TemplateAsTemplateArgumentTest.cpp:7 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class my_array<int>
 {
+  public: 
   // inline constexpr my_array() noexcept = default;
   // inline ~my_array() = default;
   // inline constexpr my_array(const my_array<int> &) = default;
@@ -22,13 +23,14 @@ class Map
     C<V> value;
 };
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TemplateAsTemplateArgumentTest.cpp:13 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Map<int, int, my_array>
 {
   my_array<int> key;
   my_array<int> value;
+  public: 
   // inline constexpr Map() noexcept = default;
   // inline constexpr Map(const Map<int, int, my_array> &) = default;
   // inline constexpr Map(Map<int, int, my_array> &&) = default;

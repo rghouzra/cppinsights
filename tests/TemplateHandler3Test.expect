@@ -6,8 +6,8 @@ constexpr T min(const T& b)
     return N < b;
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateHandler3Test.cpp:11 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline constexpr int min<2, int>(const int & b)
 {

@@ -10,8 +10,8 @@ static inline decltype(auto) Normalize(const T& arg)
   }
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateArgumentsTest.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline char const (&Normalize<char [8]>(char const (&arg)[8]))[8]
 {
@@ -24,8 +24,8 @@ inline char const (&Normalize<char [8]>(char const (&arg)[8]))[8]
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateArgumentsTest.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline const int & Normalize<int>(const int & arg)
 {
@@ -38,8 +38,8 @@ inline const int & Normalize<int>(const int & arg)
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateArgumentsTest.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 inline const char * Normalize<std::basic_string<char> >(const std::basic_string<char> & arg)
 {
@@ -57,8 +57,8 @@ void Log(const char* fmt, const Ts&... ts)
   printf(fmt, Normalize(ts)...);
 }
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateArgumentsTest.cpp:23 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void Log<char [8]>(const char * fmt, char const (&__ts1)[8])
 {
@@ -67,8 +67,8 @@ void Log<char [8]>(const char * fmt, char const (&__ts1)[8])
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateArgumentsTest.cpp:25 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void Log<int>(const char * fmt, const int & __ts1)
 {
@@ -77,8 +77,8 @@ void Log<int>(const char * fmt, const int & __ts1)
 #endif
 
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateArgumentsTest.cpp:28 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 void Log<std::basic_string<char> >(const char * fmt, const std::basic_string<char> & __ts1)
 {

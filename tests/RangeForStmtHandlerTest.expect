@@ -11,7 +11,8 @@ struct A
     class __lambda_10_38
     {
       int & i;
-      public: inline /*constexpr */ int operator()() const
+      public: 
+      inline /*constexpr */ int operator()() const
       {
         return ++i;
       }
@@ -42,7 +43,8 @@ struct B
     class __lambda_22_38
     {
       int & i;
-      public: inline /*constexpr */ int operator()() const
+      public: 
+      inline /*constexpr */ int operator()() const
       {
         return ++i;
       }

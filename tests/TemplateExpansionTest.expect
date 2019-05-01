@@ -1,8 +1,8 @@
 template <template <typename> class... Templates>
 struct template_tuple {};
 
-#ifdef INSIGHTS_USE_TEMPLATE
 /* First instantiated from: TemplateExpansionTest.cpp:9 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct template_tuple<identity>
 {
@@ -16,8 +16,8 @@ struct identity {};
 template <template <typename> class... Templates>
 template_tuple<Templates...> f7() {}
 
-#ifdef INSIGHTS_USE_TEMPLATE_INNER
 /* First instantiated from: TemplateExpansionTest.cpp:9 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
 template_tuple<identity> f7<identity>()
 {
@@ -35,11 +35,12 @@ void foo2()
   template<typename> class A { };
   template<template<typename> class ...> class B { };
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:27 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class B<Test, Test>
   {
+    public: 
     // inline constexpr B() noexcept = default;
     // inline ~B() = default;
     // inline constexpr B(const B<Test, Test> &) = default;
@@ -53,11 +54,12 @@ void foo2()
 
   template<typename> class testType { };
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:43 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class testType<int>
   {
+    public: 
     // inline constexpr testType() noexcept = default;
     // inline constexpr testType(const testType<int> &) = default;
     // inline constexpr testType(testType<int> &&) = default;
@@ -68,8 +70,8 @@ void foo2()
 
   template<int fp(void)> class testDecl { };
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:45 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class testDecl<&foo>
   {
@@ -78,8 +80,8 @@ void foo2()
   #endif
   
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:46 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class testDecl<int (*)()>
   {
@@ -90,11 +92,12 @@ void foo2()
 
   template<int> class testIntegral { };
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:48 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class testIntegral<2>
   {
+    public: 
     // inline constexpr testIntegral() noexcept = default;
     // inline constexpr testIntegral(const testIntegral<2> &) = default;
     // inline constexpr testIntegral(testIntegral<2> &&) = default;
@@ -106,14 +109,11 @@ void foo2()
   template<template<typename> class> class testTemplate { };
   
 
-#ifdef INSIGHTS_USE_TEMPLATE
-/* First instantiated from: TemplateExpansionTest.cpp:24 */
 template<>
 class testTemplate<A>
 {
 };
 
-#endif
 
 
 
@@ -121,12 +121,13 @@ class testTemplate<A>
     B<T...> testTemplateExpansion;
   };
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:41 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class C<Test, Test>
   {
     B<Test, Test> testTemplateExpansion;
+    public: 
     // inline constexpr C() noexcept = default;
     // inline constexpr C(const C<Test, Test> &) = default;
     // inline constexpr C(C<Test, Test> &&) = default;
@@ -137,11 +138,12 @@ class testTemplate<A>
 
   template<int, int = 0> class testExpr{};
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:50 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class testExpr<4, 1>
   {
+    public: 
     // inline constexpr testExpr() noexcept = default;
     // inline constexpr testExpr(const testExpr<4, 1> &) = default;
     // inline constexpr testExpr(testExpr<4, 1> &&) = default;
@@ -152,11 +154,12 @@ class testTemplate<A>
 
   template<int, int ...> class testPack { };
   
-  #ifdef INSIGHTS_USE_TEMPLATE
   /* First instantiated from: TemplateExpansionTest.cpp:52 */
+  #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class testPack<0, 1, 2, 4>
   {
+    public: 
     // inline constexpr testPack() noexcept = default;
     // inline constexpr testPack(const testPack<0, 1, 2, 4> &) = default;
     // inline constexpr testPack(testPack<0, 1, 2, 4> &&) = default;
