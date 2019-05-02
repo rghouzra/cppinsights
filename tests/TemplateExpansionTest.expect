@@ -25,6 +25,7 @@ template_tuple<identity> f7<identity>()
 #endif
 
 
+
 void foo2()
 {
   f7<identity>();

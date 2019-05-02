@@ -22,6 +22,7 @@ void Test<std::function<void ()> >(std::function<void ()> & t)
 #endif
 
 
+
 int main()
 {
   std::function<void ()> x = std::function<void ()>(Func);

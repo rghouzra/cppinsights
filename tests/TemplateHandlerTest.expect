@@ -16,7 +16,6 @@ inline constexpr int min<int>(const int & a, const int & b)
 }
 #endif
 
-
 /* First instantiated from: TemplateHandlerTest.cpp:59 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -25,6 +24,7 @@ inline constexpr double min<double>(const double & a, const double & b)
   return (a < b) ? a : b;
 }
 #endif
+
  
 
 template<typename T>
@@ -42,7 +42,6 @@ int max<int>(const int & a, const int & b)
 }
 #endif
 
-
 /* First instantiated from: TemplateHandlerTest.cpp:68 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -51,6 +50,7 @@ double max<double>(const double & a, const double & b)
   return (a > b) ? a : b;
 }
 #endif
+
  
 
 
@@ -158,7 +158,6 @@ void tprintf<const char *, char, int>(const char * format, const char * value, c
 }
 #endif
 
-
 /* First instantiated from: TemplateHandlerTest.cpp:44 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -178,7 +177,6 @@ void tprintf<char, int>(const char * format, char value, int __Fargs2)
 }
 #endif
 
-
 /* First instantiated from: TemplateHandlerTest.cpp:44 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -197,6 +195,7 @@ void tprintf<int, >(const char * format, int value)
   
 }
 #endif
+
 
 
 int main()

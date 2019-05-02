@@ -15,6 +15,7 @@ double create<double, >()
 #endif
 
 
+
 int main()
 {
   double doub = create<double>();

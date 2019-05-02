@@ -1,83 +1,83 @@
-.tmp.cpp:83:8: error: no template named 'tuple_size'; did you mean 'std::tuple_size'?
+.tmp.cpp:82:8: error: no template named 'tuple_size'; did you mean 'std::tuple_size'?
 struct tuple_size<constant::Q>
        ^~~~~~~~~~
        std::tuple_size
 .tmp.cpp:4:45: note: 'std::tuple_size' declared here
 namespace std { template<typename T> struct tuple_size; }
                                             ^
-.tmp.cpp:103:6: error: implicit instantiation of undefined template 'std::tuple_element<0, constant::Q>'
+.tmp.cpp:102:6: error: implicit instantiation of undefined template 'std::tuple_element<0, constant::Q>'
 std::tuple_element<0, constant::Q>::type a = constant::get<0ul>(constant::__q17);
+     ^
+.tmp.cpp:5:51: note: template is declared here
+namespace std { template<size_t, typename> struct tuple_element;
+                                                  ^
+.tmp.cpp:102:46: error: no matching function for call to 'get'
+std::tuple_element<0, constant::Q>::type a = constant::get<0ul>(constant::__q17);
+                                             ^~~~~~~~~~~~~~~~~~
+.tmp.cpp:50:33: note: candidate function template not viable: no known conversion from 'constant::Q' to 'constant::Q &&' for 1st argument
+  template<int N> constexpr int get(Q &&) { return N * N; }
+                                ^
+.tmp.cpp:103:6: error: implicit instantiation of undefined template 'std::tuple_element<1, constant::Q>'
+std::tuple_element<1, constant::Q>::type b = constant::get<1ul>(constant::__q17);
      ^
 .tmp.cpp:5:51: note: template is declared here
 namespace std { template<size_t, typename> struct tuple_element;
                                                   ^
 .tmp.cpp:103:46: error: no matching function for call to 'get'
-std::tuple_element<0, constant::Q>::type a = constant::get<0ul>(constant::__q17);
-                                             ^~~~~~~~~~~~~~~~~~
-.tmp.cpp:50:33: note: candidate function template not viable: no known conversion from 'constant::Q' to 'constant::Q &&' for 1st argument
-  template<int N> constexpr int get(Q &&) { return N * N; }
-                                ^
-.tmp.cpp:104:6: error: implicit instantiation of undefined template 'std::tuple_element<1, constant::Q>'
-std::tuple_element<1, constant::Q>::type b = constant::get<1ul>(constant::__q17);
-     ^
-.tmp.cpp:5:51: note: template is declared here
-namespace std { template<size_t, typename> struct tuple_element;
-                                                  ^
-.tmp.cpp:104:46: error: no matching function for call to 'get'
 std::tuple_element<1, constant::Q>::type b = constant::get<1ul>(constant::__q17);
                                              ^~~~~~~~~~~~~~~~~~
 .tmp.cpp:50:33: note: candidate function template not viable: no known conversion from 'constant::Q' to 'constant::Q &&' for 1st argument
   template<int N> constexpr int get(Q &&) { return N * N; }
                                 ^
-.tmp.cpp:105:6: error: implicit instantiation of undefined template 'std::tuple_element<2, constant::Q>'
+.tmp.cpp:104:6: error: implicit instantiation of undefined template 'std::tuple_element<2, constant::Q>'
 std::tuple_element<2, constant::Q>::type c = constant::get<2ul>(conststd::tuple_element<0, constant::Q>::type && a = constant::get<0ul>(constant::);
      ^
 .tmp.cpp:5:51: note: template is declared here
 namespace std { template<size_t, typename> struct tuple_element;
                                                   ^
-.tmp.cpp:105:65: error: use of undeclared identifier 'conststd'
+.tmp.cpp:104:65: error: use of undeclared identifier 'conststd'
 std::tuple_element<2, constant::Q>::type c = constant::get<2ul>(conststd::tuple_element<0, constant::Q>::type && a = constant::get<0ul>(constant::);
                                                                 ^
-.tmp.cpp:105:103: error: expected '(' for function-style cast or type construction
+.tmp.cpp:104:103: error: expected '(' for function-style cast or type construction
 std::tuple_element<2, constant::Q>::type c = constant::get<2ul>(conststd::tuple_element<0, constant::Q>::type && a = constant::get<0ul>(constant::);
                                                                                            ~~~~~~~~~~~^
-.tmp.cpp:105:106: error: no member named 'type' in the global namespace
+.tmp.cpp:104:106: error: no member named 'type' in the global namespace
 std::tuple_element<2, constant::Q>::type c = constant::get<2ul>(conststd::tuple_element<0, constant::Q>::type && a = constant::get<0ul>(constant::);
                                                                                                        ~~^
-.tmp.cpp:105:147: error: expected unqualified-id
+.tmp.cpp:104:147: error: expected unqualified-id
 std::tuple_element<2, constant::Q>::type c = constant::get<2ul>(conststd::tuple_element<0, constant::Q>::type && a = constant::get<0ul>(constant::);
                                                                                                                                                   ^
-.tmp.cpp:106:36: error: expected '(' for function-style cast or type construction
+.tmp.cpp:105:36: error: expected '(' for function-style cast or type construction
 ntstd::tuple_element<1, constant::Q>::type && b = constant::get<1ul>(constant::);
+                        ~~~~~~~~~~~^
+.tmp.cpp:105:39: error: no member named 'type' in the global namespace
+ntstd::tuple_element<1, constant::Q>::type && b = constant::get<1ul>(constant::);
+                                    ~~^
+.tmp.cpp:105:80: error: expected unqualified-id
+ntstd::tuple_element<1, constant::Q>::type && b = constant::get<1ul>(constant::);
+                                                                               ^
+.tmp.cpp:106:36: error: expected '(' for function-style cast or type construction
+:_std::tuple_element<2, constant::Q>::type && c = constant::get<2ul>(constant::);
                         ~~~~~~~~~~~^
 .tmp.cpp:106:39: error: no member named 'type' in the global namespace
-ntstd::tuple_element<1, constant::Q>::type && b = constant::get<1ul>(constant::);
+:_std::tuple_element<2, constant::Q>::type && c = constant::get<2ul>(constant::);
                                     ~~^
 .tmp.cpp:106:80: error: expected unqualified-id
-ntstd::tuple_element<1, constant::Q>::type && b = constant::get<1ul>(constant::);
-                                                                               ^
-.tmp.cpp:107:36: error: expected '(' for function-style cast or type construction
-:_std::tuple_element<2, constant::Q>::type && c = constant::get<2ul>(constant::);
-                        ~~~~~~~~~~~^
-.tmp.cpp:107:39: error: no member named 'type' in the global namespace
-:_std::tuple_element<2, constant::Q>::type && c = constant::get<2ul>(constant::);
-                                    ~~^
-.tmp.cpp:107:80: error: expected unqualified-id
 :_std::tuple_element<2, constant::Q>::type && c = constant::get<2ul>(constant::);
                                                                                ^
-.tmp.cpp:113:10: error: implicit instantiation of undefined template 'std::tuple_element<0, constant::Q>'
+.tmp.cpp:112:10: error: implicit instantiation of undefined template 'std::tuple_element<0, constant::Q>'
     std::tuple_element<0, constant::Q>::type a = constant::get<0ul>(__q19);
          ^
 .tmp.cpp:5:51: note: template is declared here
 namespace std { template<size_t, typename> struct tuple_element;
                                                   ^
-.tmp.cpp:114:10: error: implicit instantiation of undefined template 'std::tuple_element<1, constant::Q>'
+.tmp.cpp:113:10: error: implicit instantiation of undefined template 'std::tuple_element<1, constant::Q>'
     std::tuple_element<1, constant::Q>::type b = constant::get<1ul>(__q19);
          ^
 .tmp.cpp:5:51: note: template is declared here
 namespace std { template<size_t, typename> struct tuple_element;
                                                   ^
-.tmp.cpp:115:10: error: implicit instantiation of undefined template 'std::tuple_element<2, constant::Q>'
+.tmp.cpp:114:10: error: implicit instantiation of undefined template 'std::tuple_element<2, constant::Q>'
     std::tuple_element<2, constant::Q>::type c = constant::get<2ul>(__q19);
          ^
 .tmp.cpp:5:51: note: template is declared here

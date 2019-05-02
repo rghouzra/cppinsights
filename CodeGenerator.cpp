@@ -716,7 +716,9 @@ void CodeGenerator::InsertArg(const FunctionDecl* stmt)
 {
     //    LAMBDA_SCOPE_HELPER(VarDecl);
 
-    if(const auto* ctor = dyn_cast_or_null<CXXConstructorDecl>(stmt)) {
+    if(const auto* deductionGuide = dyn_cast_or_null<CXXDeductionGuideDecl>(stmt)) {
+        InsertArg(deductionGuide);
+    } else if(const auto* ctor = dyn_cast_or_null<CXXConstructorDecl>(stmt)) {
         InsertArg(ctor);
     } else {
         // skip a case at least in lambdas with a templated conversion operator which is not used and has auto return
@@ -1725,8 +1727,6 @@ void CodeGenerator::InsertArg(const CXXMethodDecl* stmt)
     initOutputFormatHelper.SetIndent(mOutputFormatHelper, OutputFormatHelper::SkipIndenting::Yes);
     CXXConstructorDecl* cxxInheritedCtorDecl{nullptr};
 
-    DPrint("AAA%d\n", stmt->isTemplated());
-
     // travers the ctor inline init statements first to find a potential CXXInheritedCtorInitExpr. This carries the
     // name and the type. The CXXMethodDecl above knows only the type.
     if(const auto* ctor = dyn_cast_or_null<CXXConstructorDecl>(stmt)) {
@@ -2093,6 +2093,32 @@ void CodeGenerator::InsertArg(const CXXNoexceptExpr* stmt)
     }
 
     mOutputFormatHelper.Append(") ");
+}
+//-----------------------------------------------------------------------------
+
+void CodeGenerator::InsertArg(const CXXDeductionGuideDecl* stmt)
+{
+    const bool isSpecialization{stmt->isFunctionTemplateSpecialization()};
+    DPrint("dd expl: %d\n", isSpecialization);
+
+    if(isSpecialization) {
+        InsertTemplateGuardBegin(stmt);
+    }
+
+    InsertTemplateParameters(*stmt->getDeducedTemplate()->getTemplateParameters());
+
+    mOutputFormatHelper.Append(GetName(*stmt->getDeducedTemplate()));
+
+    if(stmt->getNumParams()) {
+        WrapInParens([&] { mOutputFormatHelper.AppendParameterList(stmt->parameters()); });
+    }
+
+    mOutputFormatHelper.Append(" -> ", GetName(stmt->getReturnType()));
+    mOutputFormatHelper.AppendSemiNewLine();
+
+    if(isSpecialization) {
+        InsertTemplateGuardEnd(stmt);
+    }
 }
 //-----------------------------------------------------------------------------
 

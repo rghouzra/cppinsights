@@ -15,7 +15,6 @@ inline constexpr int min<int>(const int & a, const int & b)
 }
 #endif
 
-
 /* First instantiated from: StaticAndTemplatesTest.cpp:23 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -24,6 +23,7 @@ inline constexpr double min<double>(const double & a, const double & b)
   return (a < b) ? a : b;
 }
 #endif
+
  
 
 template<typename T>
@@ -41,7 +41,6 @@ int max<int>(const int & a, const int & b)
 }
 #endif
 
-
 /* First instantiated from: StaticAndTemplatesTest.cpp:26 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -50,6 +49,7 @@ double max<double>(const double & a, const double & b)
   return (a > b) ? a : b;
 }
 #endif
+
  
 
 int main()

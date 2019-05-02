@@ -85,6 +85,12 @@ TemplateHandler::TemplateHandler(Rewriter& rewrite, MatchFinder& matcher)
 : InsightsBase(rewrite)
 {
     matcher.addMatcher(
+        functionTemplateDecl(
+            unless(anyOf(isExpansionInSystemHeader(), isMacroOrInvalidLocation(), hasAncestor(cxxRecordDecl()))))
+            .bind("func"),
+        this);
+
+#if 0
         functionDecl(allOf(unless(isExpansionInSystemHeader()),
                            unless(isMacroOrInvalidLocation()),
                            hasParent(functionTemplateDecl(unless(hasParent(classTemplateSpecializationDecl())),
@@ -93,6 +99,7 @@ TemplateHandler::TemplateHandler(Rewriter& rewrite, MatchFinder& matcher)
                      unless(hasAncestor(cxxRecordDecl())))
             .bind("func"),
         this);
+#endif
 
     // match typical use where a class template is defined and it is used later.
     matcher.addMatcher(classTemplateSpecializationDecl(unless(anyOf(isExpansionInSystemHeader(),
@@ -117,17 +124,31 @@ TemplateHandler::TemplateHandler(Rewriter& rewrite, MatchFinder& matcher)
 void TemplateHandler::run(const MatchFinder::MatchResult& result)
 {
     DPrint("asdfasdfsd\n");
-    if(const auto* functionDecl = result.Nodes.getNodeAs<FunctionDecl>("func")) {
+    if(const auto* functionDecl = result.Nodes.getNodeAs<FunctionTemplateDecl>("func")) {
+        DPrint("functionTmpl\n");
         if(not functionDecl->getBody()) {
-            return;
+            // DPrint("exit\n");
+            // return;
         }
 
         functionDecl->dump();
 
-        OutputFormatHelper outputFormatHelper = InsertInstantiatedTemplate(*functionDecl, result);
-        const auto         endOfCond          = FindLocationAfterSemi(GetEndLoc(*functionDecl), result);
+        OutputFormatHelper outputFormatHelper{};
+        outputFormatHelper.AppendNewLine();
+        outputFormatHelper.AppendNewLine();
+
+        CodeGenerator codeGenerator{outputFormatHelper};
+
+        for(const auto* spec : functionDecl->specializations()) {
+            codeGenerator.InsertArg(spec);
+            outputFormatHelper.AppendNewLine();
+        }
+
+        //        OutputFormatHelper outputFormatHelper = InsertInstantiatedTemplate(*functionDecl, result);
+        const auto endOfCond = FindLocationAfterSemi(GetEndLoc(*functionDecl), result);
 
         InsertIndentedText(endOfCond.getLocWithOffset(1), outputFormatHelper);
+        // mRewrite.ReplaceText(functionDecl->getSourceRange(), outputFormatHelper.GetString());
 
     } else if(const auto* clsTmplSpecDecl = result.Nodes.getNodeAs<ClassTemplateSpecializationDecl>("class")) {
         // skip classes/struct's without a definition

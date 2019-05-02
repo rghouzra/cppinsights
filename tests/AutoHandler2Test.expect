@@ -16,7 +16,6 @@ void foo<std::map<int, int, std::less<int>, std::allocator<std::pair<const int, 
 }
 #endif
 
-
 /* First instantiated from: AutoHandler2Test.cpp:16 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -25,6 +24,7 @@ void foo<std::set<int, std::less<int>, std::allocator<int> > >(std::set<int, std
   std::__tree_const_iterator<int, std::__tree_node<int, void *> *, long> it = t.find(42);
 }
 #endif
+
 
 
 

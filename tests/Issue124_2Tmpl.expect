@@ -20,7 +20,6 @@ void (&&f<long>(long))()
 }
 #endif
 
-
 /* First instantiated from: Issue124_2Tmpl.cpp:19 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -29,6 +28,7 @@ void (&&f<int>(int))()
   return g;
 }
 #endif
+
 
 
 int main()

@@ -58,7 +58,6 @@ namespace constant {
   }
   #endif
   
-  
   /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
@@ -68,7 +67,6 @@ namespace constant {
   }
   #endif
   
-  
   /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
@@ -77,6 +75,7 @@ namespace constant {
     return 2 * 2;
   }
   #endif
+  
   
 }
 template<>

@@ -12,7 +12,6 @@ inline constexpr int fold_minus_impl<0>()
 }
 #endif
 
-
 /* First instantiated from: Issue91.cpp:8 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -21,6 +20,7 @@ inline constexpr int fold_minus_impl<0, 0>()
   return 0 - (0 - 5);
 }
 #endif
+
 
 
 template<int... Ints>
@@ -37,7 +37,6 @@ inline constexpr int fold_minus<>()
 }
 #endif
 
-
 /* First instantiated from: Issue91.cpp:16 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -46,6 +45,7 @@ inline constexpr int fold_minus<0>()
   return fold_minus_impl<0, 0>();
 }
 #endif
+
 
 
 /* PASSED: static_assert(fold_minus() == -5); */

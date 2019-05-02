@@ -82,6 +82,7 @@ inline void test<__lambda_40_8>(__lambda_40_8 aa)
 #endif
 
 
+
 template<unsigned int TA>
 inline SA<TA>::SA(const int & PA)
 {

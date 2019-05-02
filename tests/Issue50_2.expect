@@ -23,7 +23,6 @@ void foo<Test &>(Test & t)
 }
 #endif
 
-
 /* First instantiated from: Issue50_2.cpp:19 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -32,7 +31,6 @@ void foo<int &>(int & t)
 }
 #endif
 
-
 /* First instantiated from: Issue50_2.cpp:22 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -40,6 +38,7 @@ void foo<long>(long && t)
 {
 }
 #endif
+
 
 
 int main()

@@ -10,6 +10,7 @@ int foo<int>()
   return int(42);
 }
 #endif
+
  
 template<typename T> T fooGood() {return T{42}; }
 
@@ -21,6 +22,7 @@ int fooGood<int>()
   return int{42};
 }
 #endif
+
  
 
 int a = foo<int>();

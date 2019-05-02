@@ -24,6 +24,7 @@ int circular_area<int>(int r)
 #endif
 
 
+
 template<typename T>
 struct X
 {
@@ -58,6 +59,7 @@ X<int> DoIt<int>(int x)
   return {circular_area(x), circular_area(x + 2)};
 }
 #endif
+
 
 
 int main()

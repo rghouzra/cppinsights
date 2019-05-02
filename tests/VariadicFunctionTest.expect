@@ -1,6 +1,5 @@
 template<typename T>
 void foo(T, ...) {}
-
 /* First instantiated from: VariadicFunctionTest.cpp:9 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -8,6 +7,7 @@ void foo<int>(int, ...)
 {
 }
 #endif
+
 
 
 void boo(int, ...)

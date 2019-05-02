@@ -13,5 +13,6 @@ int func<int, int>(int __t0, int __t1)
 }
 #endif
 
+
 int _ = func(5, 5);
 

@@ -23,7 +23,6 @@ inline char const (&Normalize<char [8]>(char const (&arg)[8]))[8]
 }
 #endif
 
-
 /* First instantiated from: TemplateArgumentsTest.cpp:16 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -37,7 +36,6 @@ inline const int & Normalize<int>(const int & arg)
 }
 #endif
 
-
 /* First instantiated from: TemplateArgumentsTest.cpp:16 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -49,6 +47,7 @@ inline const char * Normalize<std::basic_string<char> >(const std::basic_string<
   
 }
 #endif
+
 
 
 template<typename... Ts>
@@ -66,7 +65,6 @@ void Log<char [8]>(const char * fmt, char const (&__ts1)[8])
 }
 #endif
 
-
 /* First instantiated from: TemplateArgumentsTest.cpp:25 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -76,7 +74,6 @@ void Log<int>(const char * fmt, const int & __ts1)
 }
 #endif
 
-
 /* First instantiated from: TemplateArgumentsTest.cpp:28 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -85,6 +82,7 @@ void Log<std::basic_string<char> >(const char * fmt, const std::basic_string<cha
   printf(fmt, Normalize(__ts1));
 }
 #endif
+
 
 
 int main()

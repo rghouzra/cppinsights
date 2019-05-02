@@ -16,6 +16,7 @@ int g<int, int, int, int, int>(int __0, int __1, int __2, int __3, int __4)
 #endif
 
 
+
 #if 0
 template<class... Args>
 void f(Args... args) {
@@ -63,6 +64,7 @@ void f2<int, int, int, int, int>(int __args0, int __args1, int __args2, int __ar
   lm.operator()();
 }
 #endif
+
 
 
 int main()

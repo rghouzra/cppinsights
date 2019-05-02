@@ -14,6 +14,7 @@ void foo<int &&(&)(int &&)>(int &&(&f)(int &&))
 #endif
 
 
+
 using F = int && (int&&);
 
 int && f(int && i)

@@ -55,6 +55,8 @@ void FunctionDeclHandler::run(const MatchFinder::MatchResult& result)
         OutputFormatHelper outputFormatHelper{columnNr};
         CodeGenerator      codeGenerator{outputFormatHelper};
 
+        DPrint("funcdecl\n");
+
         codeGenerator.InsertArg(funcDecl);
 
         // Find the correct ending of the source range. In case of a declaration we need to find the ending semi,

@@ -20,6 +20,7 @@ IGNORED_STMT(OMPParallelForDirective)
 IGNORED_DECL(UsingShadowDecl)
 IGNORED_DECL(UsingPackDecl)
 
+SUPPORTED_DECL(CXXDeductionGuideDecl)
 SUPPORTED_DECL(VarDecl)
 SUPPORTED_DECL(TypeAliasDecl)
 SUPPORTED_DECL(TypedefDecl)

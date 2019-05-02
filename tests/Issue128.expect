@@ -10,6 +10,7 @@ void foo<int>(int, ...)
 #endif
 
 
+
 int main()
 {
   foo(1, 2.0);

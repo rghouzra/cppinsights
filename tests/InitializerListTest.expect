@@ -81,7 +81,6 @@ void something<int>(std::initializer_list<int>)
 }
 #endif
 
-
 /* First instantiated from: InitializerListTest.cpp:60 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -89,6 +88,7 @@ void something<float>(std::initializer_list<float>)
 {
 }
 #endif
+
 
 
 void foo()

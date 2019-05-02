@@ -14,6 +14,7 @@ inline constexpr int min<2, int>(const int & b)
   return static_cast<int>(2 < b);
 }
 #endif
+
  
 
 int main()

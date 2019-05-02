@@ -18,7 +18,6 @@ int (&&f<long>(long i))[2]
 }
 #endif
 
-
 /* First instantiated from: Issue124_1Tmpl.cpp:17 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
@@ -27,6 +26,7 @@ int (&&f<int>(int i))[2]
   return static_cast<int (&&)[2]>(a);
 }
 #endif
+
 
 
 int main()
