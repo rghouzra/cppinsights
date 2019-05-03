@@ -131,6 +131,12 @@ void TemplateHandler::run(const MatchFinder::MatchResult& result)
             // return;
         }
 
+        // skip implicit function template decls. One reason are deduction guides which bring implicit declarations with
+        // them but at the same source location as the class template.
+        if(functionDecl->isImplicit()) {
+            return;
+        }
+
         functionDecl->dump();
 
         OutputFormatHelper outputFormatHelper{};

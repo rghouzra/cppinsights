@@ -111,6 +111,7 @@ MyVector<int> operator*<int>(const MyVector<int> & a, const MyVector<int> & b)
 #endif
 
 
+
 MyVector<int> Foo(const MyVector<int> & a, const MyVector<int> & b)
 {
   vec_t result = MyVector<int>{a.size()} /* NRVO variable */;

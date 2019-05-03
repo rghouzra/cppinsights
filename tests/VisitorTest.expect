@@ -15,6 +15,7 @@ struct visitor<__lambda_8_7, __lambda_9_7> : public __lambda_8_7, public __lambd
 
 template<class... Ts> visitor(Ts...) -> visitor<Ts...>;
 
+
 /* First instantiated from: VisitorTest.cpp:7 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<class ... Ts>

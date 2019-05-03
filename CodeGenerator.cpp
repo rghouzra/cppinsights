@@ -2037,15 +2037,22 @@ void CodeGenerator::ParseDeclContext(const DeclContext* ctx)
 
 void CodeGenerator::InsertArg(const UsingDecl* stmt)
 {
-    if(isa<ConstructorUsingShadowDecl>(stmt)) {
-        return;
+    // Skip UsingDecl's which have ConstructorUsingShadowDecl attached. This means that we will create the associated
+    // constructors from the base class later. Having this \c using still in the code prevents compiling the transformed
+    // code.
+    if(stmt->shadow_size()) {
+        for(const auto* shadow : stmt->shadows()) {
+            if(isa<ConstructorUsingShadowDecl>(shadow)) {
+                return;
+            }
+        }
     }
 
     mOutputFormatHelper.Append("using ");
 
     // own implementation due to lambdas
     if(const DeclContext* ctx = stmt->getDeclContext()) {
-        DPrint("aaa: %d %d \n", ctx->isFunctionOrMethod(), ctx->isRecord());
+        DPrint("using aaa: %d %d \n", ctx->isFunctionOrMethod(), ctx->isRecord());
         if(ctx->isFunctionOrMethod()) {
             PrintNamespace(stmt->getQualifier());
 
